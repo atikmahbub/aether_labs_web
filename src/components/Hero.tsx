@@ -273,6 +273,9 @@ export default function Hero() {
         @keyframes tblink { 0%,100% { opacity:1; } 50% { opacity:0; } }
         .type-text {
           color: var(--white); font-weight: 600;
+          display: inline-block;
+          min-width: 140px;
+          text-align: left;
         }
         .hero-ctas { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; }
         .hero-ctas .btn-ghost {
