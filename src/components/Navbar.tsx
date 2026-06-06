@@ -30,8 +30,8 @@ export default function Navbar() {
         {/* Brand */}
         <a className="brand" href="#top" aria-label="Aether Labs home">
           <svg className="brand-mark" viewBox="0 0 40 40" fill="none" aria-hidden="true">
-            <path d="M20 3 35 11.5 35 28.5 20 37 5 28.5 5 11.5Z" stroke="#ff5a1f" strokeWidth="2" fill="rgba(255,90,31,0.06)" />
-            <path d="M20 12 28 27 12 27Z" stroke="#ff5a1f" strokeWidth="2" fill="none" />
+            <path d="M20 3 35 11.5 35 28.5 20 37 5 28.5 5 11.5Z" stroke="#FF5C1A" strokeWidth="2" fill="rgba(255,92,26,0.06)" />
+            <path d="M20 12 28 27 12 27Z" stroke="#FF5C1A" strokeWidth="2" fill="none" />
           </svg>
           <span className="brand-name">
             Aether&nbsp;Labs<span style={{ color: "var(--accent)" }}>®</span>
@@ -89,7 +89,7 @@ export default function Navbar() {
           border-bottom: 1px solid transparent;
         }
         .site-nav.scrolled {
-          background: rgba(11,10,8,0.82);
+          background: rgba(13,5,0,0.85);
           backdrop-filter: blur(16px);
           -webkit-backdrop-filter: blur(16px);
           border-bottom: 1px solid var(--border);
@@ -139,7 +139,7 @@ export default function Navbar() {
           border-radius: 2px; display: block; transition: 0.3s;
         }
         .mobile-menu {
-          background: rgba(11,10,8,0.97);
+          background: rgba(13,5,0,0.97);
           backdrop-filter: blur(16px);
           border-bottom: 1px solid var(--border);
           padding: 8px 32px 22px;

@@ -5,23 +5,24 @@
    ============================================================ */
 :root {
   /* Palette */
-  --bg:           #0b0a08;
-  --card:         #151310;
-  --card-2:       #100e0b;
-  --border:       rgba(245, 240, 233, 0.05);
-  --border-2:     rgba(245, 240, 233, 0.09);
-  --accent:       #e05a1f;
-  --accent-deep:  #b84310;
-  --accent-glow:  rgba(224, 90, 31, 0.12);
-  --white:        #f5f1ea;
-  --muted:        #948c81;
-  --dim:          #615a51;
+  --bg:           #0D0500;
+  --card:         #150800;
+  --card-2:       #100600;
+  --border:       rgba(255, 255, 255, 0.08);
+  --border-2:     rgba(255, 255, 255, 0.14);
+  --accent:       #FF5C1A;
+  --accent-deep:  #E04E10;
+  --accent-glow:  rgba(255, 92, 26, 0.15);
+  --white:        #FFFFFF;
+  --muted:        rgba(255, 255, 255, 0.55);
+  --dim:          rgba(255, 255, 255, 0.30);
 
   /* Layout */
-  --maxw: 1240px;
+  --maxw: 1200px;
 
-  /* Fonts */
-  --font-head: "Archivo", sans-serif;
+  /* Fonts — overridden at runtime by Next.js font CSS variables on <html> */
+  --font-head: "Barlow Condensed", sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
   --font-mono: "Space Mono", monospace;
 
   /* ── Type Scale ──────────────────────────────────────────
@@ -47,18 +48,25 @@
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
-  background: var(--bg);
+  background-color: var(--bg);
+  background-image: radial-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1.4px);
+  background-size: 22px 22px;
+  background-position: -1px -1px;
+  background-attachment: fixed;
 }
 
 body {
   background: transparent;
   color: var(--muted);
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: 15px;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  opacity: 0;
+  transition: opacity 0.4s ease;
 }
+body.loaded { opacity: 1; }
 
 a { color: inherit; text-decoration: none; }
 img, svg { display: block; }
@@ -198,15 +206,15 @@ section { position: relative; }
   background: var(--accent);
   color: #050505;
   box-shadow:
-    0 8px 24px -8px rgba(224, 90, 31, 0.5),
+    0 8px 24px -8px rgba(255, 92, 26, 0.5),
     inset 0 1px 0 rgba(255, 255, 255, 0.25);
   border-color: rgba(255, 255, 255, 0.1);
 }
 .btn-primary:hover {
   transform: translateY(-2px);
-  background: #e06a35;
+  background: var(--accent-deep);
   box-shadow:
-    0 12px 32px -8px rgba(224, 90, 31, 0.75),
+    0 12px 32px -8px rgba(255, 92, 26, 0.75),
     inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
@@ -276,4 +284,75 @@ section { position: relative; }
   .section-pad { padding: 56px 0; }
   .wrap,
   .wrap-inner { padding: 0 16px; }
+}
+
+/* ============================================================
+   SCROLLSPY — active nav link
+   ============================================================ */
+.nav-link-item { position: relative; }
+.nav-link-item.active { color: var(--white); }
+.nav-link-item.active::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: -7px;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 2px;
+}
+
+/* ============================================================
+   BACK TO TOP BUTTON
+   ============================================================ */
+#toTop {
+  position: fixed;
+  right: 26px;
+  bottom: 26px;
+  z-index: 200;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 0;
+  background: var(--accent);
+  color: #160a03;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(14px) scale(0.85);
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease, background 0.2s ease;
+  box-shadow: 0 10px 28px -8px rgba(255, 92, 26, 0.55);
+}
+#toTop.show { opacity: 1; transform: none; pointer-events: auto; }
+#toTop:hover { background: var(--accent-deep); }
+#toTop svg { width: 20px; height: 20px; }
+
+@media (max-width: 600px) {
+  #toTop { right: 16px; bottom: 16px; }
+}
+
+/* ============================================================
+   BRAND AUDIT — prose font overrides
+   All body/description text uses Inter (--font-body), not Space Mono or Barlow.
+   !important ensures these win over component-scoped <style> tags.
+   ============================================================ */
+.sec-head p,
+.hero-sub,
+.svc-desc,
+.stmt-cols p,
+.foot-tagline,
+.testi-quote,
+.faq-a p,
+.contact-sub,
+.about-copy p,
+.about-lead p,
+.why-stat p,
+.diff-desc,
+.ind-desc,
+.case-body p,
+.engage-desc,
+.proc-desc {
+  font-family: var(--font-body) !important;
+  letter-spacing: 0 !important;
 }

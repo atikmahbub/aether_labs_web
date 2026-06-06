@@ -16,6 +16,7 @@ import FAQ from "@/components/FAQ";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/ScrollReveal";
+import PageEffects from "@/components/PageEffects";
 import BgFx from "@/components/BgFx";
 
 export default function Home() {
@@ -51,6 +52,7 @@ export default function Home() {
       <Contact />
       <Footer />
       <ScrollReveal />
+      <PageEffects />
     </>
   );
 }

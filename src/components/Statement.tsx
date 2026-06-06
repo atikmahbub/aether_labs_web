@@ -26,7 +26,7 @@ export default function Statement() {
           gap: 48px; max-width: 760px;
         }
         .stmt-cols p {
-          font-family: var(--font-mono); font-size: 14.5px; color: var(--muted); line-height: 1.75;
+          font-family: var(--font-body); font-size: 14.5px; color: var(--muted); line-height: 1.75;
         }
         .stmt-meta {
           margin-top: 44px; font-family: var(--font-mono); font-size: 13px; color: var(--dim);

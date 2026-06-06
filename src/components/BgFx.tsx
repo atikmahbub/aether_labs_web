@@ -20,7 +20,7 @@ export default function BgFx() {
         .glow-sphere {
           position: absolute;
           border-radius: 50%;
-          background: radial-gradient(circle, rgba(224, 90, 31, 0.035) 0%, transparent 70%);
+          background: radial-gradient(circle, rgba(255, 92, 26, 0.035) 0%, transparent 70%);
           filter: blur(80px);
           pointer-events: none;
         }

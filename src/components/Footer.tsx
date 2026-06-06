@@ -11,8 +11,8 @@ export default function Footer() {
           <div className="foot-brand">
             <a href="#top" className="brand foot-brand-link">
               <svg className="brand-mark" viewBox="0 0 40 40" fill="none" aria-hidden="true">
-                <path d="M20 3 35 11.5 35 28.5 20 37 5 28.5 5 11.5Z" stroke="#ff5a1f" strokeWidth="2" fill="rgba(255,90,31,0.06)" />
-                <path d="M20 12 28 27 12 27Z" stroke="#ff5a1f" strokeWidth="2" fill="none" />
+                <path d="M20 3 35 11.5 35 28.5 20 37 5 28.5 5 11.5Z" stroke="#FF5C1A" strokeWidth="2" fill="rgba(255,92,26,0.06)" />
+                <path d="M20 12 28 27 12 27Z" stroke="#FF5C1A" strokeWidth="2" fill="none" />
               </svg>
               <span className="brand-name">Aether&nbsp;Labs<span style={{ color: "var(--accent)" }}>®</span></span>
             </a>
@@ -80,7 +80,7 @@ export default function Footer() {
         }
         .social-icon:hover {
           color: var(--white); border-color: var(--accent);
-          background: rgba(255,90,31,0.06);
+          background: rgba(255,92,26,0.06);
         }
         .foot-bottom {
           border-top: 1px solid var(--border); padding-top: 28px;

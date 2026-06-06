@@ -9,35 +9,13 @@ const WORDS = [
   "Elite Software.",
 ];
 
-const LOG_STEPS = [
-  { level: "sys", text: "Initializing Aether Orchestrator v4.2.0..." },
-  { level: "agent", text: "Planner Agent: Formulating execution trajectory." },
-  { level: "tool", text: "Web Search: Scraping documentation for API schema." },
-  {
-    level: "agent",
-    text: "Executor Agent: Synthesizing clean TypeScript components.",
-  },
-  { level: "sys", text: "Running verification suite: 12 tests passed." },
-  {
-    level: "success",
-    text: "Deployment finalized. Live at aether-app-92.prod",
-  },
-];
 
 export default function Hero() {
   const [typeText, setTypeText] = useState("");
   const [cursorBlink, setCursorBlink] = useState(false);
   const typeRef = useRef({ w: 0, c: 0, deleting: false });
 
-  // Dashboard states
-  const [activeNode, setActiveNode] = useState(0);
-  const [logs, setLogs] = useState<typeof LOG_STEPS>([]);
   const [progress, setProgress] = useState(0);
-  const [metrics, setMetrics] = useState({
-    tokens: 385,
-    latency: 120,
-    total: 12840,
-  });
 
   // Typewriter
   useEffect(() => {
@@ -65,44 +43,15 @@ export default function Hero() {
     return () => clearTimeout(timer);
   }, []);
 
-  // Dashboard animation loop
+  // Progress bar animation for connector dots
   useEffect(() => {
-    let logIdx = 0;
-    const logInterval = setInterval(() => {
-      setLogs((prev) => {
-        const nextLogs = [...prev, LOG_STEPS[logIdx]];
-        if (nextLogs.length > 4) nextLogs.shift();
-        return nextLogs;
-      });
-
-      // Rotate active node
-      setActiveNode(logIdx % 4);
-
-      // Update metrics slightly for dynamism
-      setMetrics((prev) => ({
-        tokens: Math.floor(350 + Math.random() * 80),
-        latency: Math.floor(100 + Math.random() * 40),
-        total: prev.total + 1,
-      }));
-
-      logIdx = (logIdx + 1) % LOG_STEPS.length;
-    }, 2800);
-
-    // Progress bar loop
     const progressInterval = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 100) return 0;
         return prev + 1;
       });
     }, 80);
-
-    // Initial logs load
-    setLogs([LOG_STEPS[0], LOG_STEPS[1]]);
-
-    return () => {
-      clearInterval(logInterval);
-      clearInterval(progressInterval);
-    };
+    return () => clearInterval(progressInterval);
   }, []);
 
   // Reveal hero elements
@@ -250,7 +199,7 @@ export default function Hero() {
         .hero {
           position: relative;
           overflow: hidden;
-          background: linear-gradient(176deg, #0f0703 0%, #4a1904 45%, #8c2f06 85%, #b53d07 100%);
+          background: linear-gradient(176deg, #1a0d05 0%, #6b2909 45%, #b8430a 85%, #e6590f 100%);
           padding: 160px 0 100px;
           margin: 0 12px;
           border-radius: 0 0 16px 16px;
@@ -299,7 +248,7 @@ export default function Hero() {
         }
         .hero-accent {
           color: transparent;
-          background: linear-gradient(135deg, #e05a1f 0%, #ff8a58 100%);
+          background: linear-gradient(135deg, #FF5C1A 0%, #ff8a58 100%);
           -webkit-background-clip: text;
           background-clip: text;
         }
@@ -316,7 +265,7 @@ export default function Hero() {
           font-family: var(--font-mono);
           font-size: 13px;
           background: rgba(5, 5, 5, 0.92);
-          border: 1px solid rgba(224, 90, 31, 0.22);
+          border: 1px solid rgba(255, 92, 26, 0.22);
           padding: 11px 20px;
           border-radius: 100px;
           width: fit-content;
@@ -327,8 +276,8 @@ export default function Hero() {
           align-items: center;
           gap: 8px;
           box-shadow: 0 4px 24px -4px rgba(0, 0, 0, 0.6),
-                      0 0 0 1px rgba(224, 90, 31, 0.08) inset,
-                      0 0 18px -6px rgba(224, 90, 31, 0.18);
+                      0 0 0 1px rgba(255, 92, 26, 0.08) inset,
+                      0 0 18px -6px rgba(255, 92, 26, 0.18);
           white-space: nowrap;
           overflow: hidden;
         }
@@ -434,7 +383,7 @@ export default function Hero() {
           height: 8px;
           border-radius: 50%;
         }
-        .flow-indicator.success { background: #10b981; }
+        .flow-indicator.success { background: var(--accent); }
         .flow-indicator.warning { background: var(--accent); }
         .flow-indicator.active-node { background: var(--dim); }
         .flow-connector {
