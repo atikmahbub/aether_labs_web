@@ -74,8 +74,8 @@ export default function Engagement() {
           background: rgba(255,90,31,0.08); border: 1px solid rgba(255,90,31,0.22);
           margin-bottom: 24px; color: var(--accent);
         }
-        .eng-title { font-size: 21px; font-weight: 800; margin-bottom: 12px; text-transform: uppercase; }
-        .eng-desc { font-family: var(--font-mono); font-size: 13.5px; color: var(--muted); line-height: 1.65; flex: 1; margin-bottom: 24px; }
+        .eng-title { font-size: 18px; font-weight: 800; margin-bottom: 12px; text-transform: uppercase; letter-spacing: -0.01em; color: var(--white); }
+        .eng-desc { font-family: var(--font-head); font-size: 14px; color: var(--muted); line-height: 1.65; flex: 1; margin-bottom: 24px; }
         .eng-more {
           font-family: var(--font-mono); font-size: 13px; color: var(--accent);
           display: inline-flex; align-items: center; gap: 8px; transition: gap 0.25s;

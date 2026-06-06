@@ -50,8 +50,8 @@ export default function Industries() {
           background: rgba(255,90,31,0.08); border: 1px solid rgba(255,90,31,0.22);
           color: var(--accent);
         }
-        .ind-title { font-size: 16px; font-weight: 800; margin-bottom: 7px; text-transform: uppercase; }
-        .ind-desc { font-family: var(--font-mono); font-size: 13px; color: var(--muted); line-height: 1.55; }
+        .ind-title { font-size: 15px; font-weight: 800; margin-bottom: 8px; text-transform: uppercase; letter-spacing: -0.01em; color: var(--white); }
+        .ind-desc { font-family: var(--font-mono); font-size: 13px; color: var(--muted); line-height: 1.6; }
         @media (max-width: 980px) { .ind-grid { grid-template-columns: repeat(2, 1fr); } }
         @media (max-width: 600px) {
           .ind-grid { grid-template-columns: 1fr; }

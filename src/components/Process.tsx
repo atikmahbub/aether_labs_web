@@ -54,8 +54,8 @@ export default function Process() {
           box-shadow: 0 0 20px var(--accent-glow);
           transform: scale(1.1);
         }
-        .proc-title { font-size: 18px; font-weight: 800; margin-bottom: 9px; text-transform: uppercase; color: var(--white); }
-        .proc-desc { font-family: var(--font-head); font-size: 13.5px; color: var(--muted); line-height: 1.6; }
+        .proc-title { font-size: 17px; font-weight: 800; margin-bottom: 9px; text-transform: uppercase; letter-spacing: -0.01em; color: var(--white); }
+        .proc-desc { font-family: var(--font-head); font-size: 14px; color: var(--muted); line-height: 1.65; }
 
         @media (max-width: 980px) {
           .proc-timeline { grid-template-columns: repeat(2, 1fr); gap: 36px 18px; }

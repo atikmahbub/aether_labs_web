@@ -1,8 +1,8 @@
-const team = [
-  ["AM", "Arjun Mehta", "Founder & Principal Engineer"],
-  ["EV", "Elena Voss", "Head of Design"],
-  ["MR", "Marcus Reed", "Lead Full-Stack Engineer"],
-  ["PN", "Priya Nair", "AI & Data Lead"],
+const highlights = [
+  { icon: "⚡", title: "Speed-First", desc: "Structured sprints with weekly demos. No bloat, no hand-offs." },
+  { icon: "🔒", title: "End-to-End Ownership", desc: "The person you talk to is the person who builds your product." },
+  { icon: "🤝", title: "Transparent Process", desc: "You're always in the loop — async-friendly, zero black boxes." },
+  { icon: "🧠", title: "AI-First by Default", desc: "We integrate intelligence where it actually adds value, not hype." },
 ];
 
 export default function About() {
@@ -12,20 +12,20 @@ export default function About() {
         <div className="about-lead">
           <div className="reveal">
             <span className="label"><span className="n">07</span> About us</span>
-            <h2 className="about-title">A small senior team that ships like a big one</h2>
+            <h2 className="about-title">A studio built for ambitious products.</h2>
           </div>
           <div className="reveal about-copy">
-            <p>Aether Labs is a boutique software studio founded by senior engineers who got tired of bloated agencies and missed deadlines. We stay deliberately small so the people you meet are the people who build your product.</p>
-            <p>Since <strong>2020</strong> we&apos;ve partnered with founders and product teams to take ideas from whiteboard to launch — and then scale them. No account managers, no hand-offs to junior teams. Just <strong>experienced builders</strong> who care about the outcome as much as you do.</p>
+            <p>Aether Labs is a boutique software studio built around one principle — the best products come from senior engineers who take full ownership. No bloated teams, no account managers, no hand-offs to juniors.</p>
+            <p>With <strong>6+ years</strong> of deep expertise across MERN, React Native, AI agent systems, and SaaS architecture, our team takes your product from whiteboard to production — <strong>end-to-end, with full accountability.</strong></p>
           </div>
         </div>
 
-        <div className="team-grid">
-          {team.map(([initials, name, role]) => (
-            <div className="reveal member-card" key={name}>
-              <div className="member-avatar">{initials}</div>
-              <div className="member-name">{name}</div>
-              <div className="member-role">{role}</div>
+        <div className="highlights-grid">
+          {highlights.map((h) => (
+            <div className="reveal highlight-card" key={h.title}>
+              <div className="highlight-icon">{h.icon}</div>
+              <h3 className="highlight-title">{h.title}</h3>
+              <p className="highlight-desc">{h.desc}</p>
             </div>
           ))}
         </div>
@@ -37,37 +37,39 @@ export default function About() {
           align-items: start; margin-bottom: 68px;
         }
         .about-title {
-          font-size: clamp(30px, 4.2vw, 52px); font-weight: 900;
-          text-transform: uppercase; line-height: 0.98; margin-top: 18px;
+          font-size: clamp(30px, 3.5vw, 42px); font-weight: 800;
+          text-transform: uppercase; line-height: 1.05; letter-spacing: -0.02em; margin-top: 16px;
         }
         .about-copy { display: flex; flex-direction: column; gap: 20px; }
         .about-copy p { font-family: var(--font-mono); font-size: 15px; line-height: 1.8; color: var(--muted); }
         .about-copy strong { color: var(--white); font-weight: 700; }
-        .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
-        .member-card {
+
+        .highlights-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+        .highlight-card {
           padding: 30px 26px; background: var(--card); border: 1px solid var(--border);
-          transition: transform 0.3s, border-color 0.3s;
+          border-radius: 10px;
+          transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
         }
-        .member-card:hover { transform: translateY(-3px); border-color: var(--border-2); }
-        .member-avatar {
-          width: 60px; height: 60px; border-radius: 50%;
-          display: flex; align-items: center; justify-content: center;
-          font-family: var(--font-head); font-weight: 800; font-size: 20px;
-          color: #160a03; background: var(--accent); margin-bottom: 20px;
+        .highlight-card:hover {
+          transform: translateY(-3px);
+          border-color: var(--border-2);
+          box-shadow: 0 8px 24px -10px rgba(0,0,0,0.5), 0 0 18px -8px var(--accent-glow);
         }
-        .member-name {
-          font-family: var(--font-head); font-weight: 800; font-size: 17px;
+        .highlight-icon { font-size: 24px; margin-bottom: 16px; display: block; }
+        .highlight-title {
+          font-family: var(--font-head); font-weight: 800; font-size: 16px;
           color: var(--white); text-transform: uppercase; letter-spacing: -0.01em;
+          margin-bottom: 10px;
         }
-        .member-role { font-family: var(--font-mono); font-size: 12px; color: var(--dim); margin-top: 6px; line-height: 1.4; }
+        .highlight-desc { font-family: var(--font-mono); font-size: 12.5px; color: var(--dim); line-height: 1.6; }
 
         @media (max-width: 980px) {
           .about-lead { grid-template-columns: 1fr; gap: 26px; margin-bottom: 48px; }
-          .team-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+          .highlights-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
         }
         @media (max-width: 600px) {
-          .team-grid { grid-template-columns: 1fr; gap: 14px; }
-          .member-card { padding: 24px 22px; }
+          .highlights-grid { grid-template-columns: 1fr; gap: 14px; }
+          .highlight-card { padding: 24px 22px; }
         }
       `}</style>
     </section>

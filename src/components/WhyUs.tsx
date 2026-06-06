@@ -71,9 +71,9 @@ export default function WhyUs() {
           gap: 1px; background: var(--border); border: 1px solid var(--border);
         }
         .diff-item { background: var(--card-2); padding: 32px 30px; transition: background 0.3s; }
-        .diff-m { font-family: var(--font-mono); font-size: 12px; color: var(--accent); display: block; margin-bottom: 16px; }
-        .diff-title { font-size: 16px; font-weight: 800; margin-bottom: 8px; text-transform: uppercase; }
-        .diff-desc { font-family: var(--font-mono); font-size: 13px; color: var(--muted); line-height: 1.6; }
+        .diff-m { font-family: var(--font-mono); font-size: 12px; color: var(--accent); display: block; margin-bottom: 14px; letter-spacing: 0.04em; }
+        .diff-title { font-size: 17px; font-weight: 800; margin-bottom: 8px; text-transform: uppercase; letter-spacing: -0.01em; color: var(--white); }
+        .diff-desc { font-family: var(--font-head); font-size: 14px; color: var(--muted); line-height: 1.65; }
 
         @media (max-width: 980px) {
           .why-stats { grid-template-columns: repeat(2,1fr); }

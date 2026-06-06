@@ -249,33 +249,44 @@ export default function Hero() {
         .typewriter-container {
           font-family: var(--font-mono);
           font-size: 13px;
-          background: rgba(11, 11, 10, 0.85);
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          padding: 10px 18px;
+          background: rgba(5, 5, 5, 0.92);
+          border: 1px solid rgba(224, 90, 31, 0.22);
+          padding: 11px 20px;
           border-radius: 100px;
-          max-width: 480px;
+          width: fit-content;
+          max-width: 100%;
           margin-bottom: 36px;
           color: var(--white);
           display: inline-flex;
           align-items: center;
           gap: 8px;
-          box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+          box-shadow: 0 4px 24px -4px rgba(0, 0, 0, 0.6),
+                      0 0 0 1px rgba(224, 90, 31, 0.08) inset,
+                      0 0 18px -6px rgba(224, 90, 31, 0.18);
+          white-space: nowrap;
+          overflow: hidden;
         }
         .terminal-prompt {
           color: var(--accent);
           font-weight: bold;
+          flex-shrink: 0;
         }
         .type-caret {
-          display: inline-block; width: 6px; height: 14px;
-          background: var(--accent); margin-left: 4px; vertical-align: middle;
+          display: inline-block; width: 7px; height: 15px;
+          background: var(--accent); margin-left: 2px; vertical-align: middle;
+          flex-shrink: 0;
+          border-radius: 1px;
         }
         .type-caret-blink { animation: tblink 1s step-end infinite; }
         @keyframes tblink { 0%,100% { opacity:1; } 50% { opacity:0; } }
         .type-text {
           color: var(--white); font-weight: 600;
           display: inline-block;
-          min-width: 140px;
-          text-align: left;
+          flex: 1;
+          min-width: 0;
+          overflow: hidden;
+          text-overflow: clip;
+          white-space: nowrap;
         }
         .hero-ctas { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; }
         .hero-ctas .btn-ghost {
@@ -407,6 +418,11 @@ export default function Hero() {
           .hero { padding: 120px 0 70px; }
           .hero-trust { gap: 16px; }
           .trust-badge { padding-left: 16px; }
+          .typewriter-container {
+            width: 100%;
+            font-size: 12px;
+            padding: 9px 16px;
+          }
         }
         @media (max-width: 600px) {
           .hero-h1 { font-size: clamp(38px, 10vw, 56px); }
@@ -414,6 +430,12 @@ export default function Hero() {
           .hero-ctas .btn { justify-content: center; }
           .orchestrator-flow { max-width: 100%; }
           .trust-badge { font-size: 12px; border-left: none; padding-left: 0; width: 100%; }
+          .typewriter-container {
+            width: 100%;
+            font-size: 11.5px;
+            padding: 9px 16px;
+            gap: 6px;
+          }
         }
       `}</style>
     </header>

@@ -79,7 +79,7 @@ export default function Testimonials() {
           display: flex; align-items: flex-end; justify-content: space-between;
           gap: 30px; margin-bottom: 54px; flex-wrap: wrap;
         }
-        .testi-h2 { font-size: clamp(36px, 5.6vw, 68px); text-transform: uppercase; font-weight: 900; line-height: 0.96; margin-top: 20px; }
+        .testi-h2 { font-size: clamp(30px, 3.5vw, 42px); text-transform: uppercase; font-weight: 800; line-height: 1.05; letter-spacing: -0.02em; margin-top: 16px; }
         .avatars { display: flex; align-items: center; }
         .av {
           width: 46px; height: 46px; border-radius: 50%; border: 2px solid var(--bg);

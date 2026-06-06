@@ -130,8 +130,8 @@ export default function Contact() {
           display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start;
         }
         .contact-h2 {
-          font-size: clamp(34px, 4.8vw, 60px); font-weight: 900;
-          text-transform: uppercase; line-height: 0.96; margin: 18px 0 18px;
+          font-size: clamp(30px, 3.5vw, 42px); font-weight: 800;
+          text-transform: uppercase; line-height: 1.05; letter-spacing: -0.02em; margin: 16px 0 16px;
         }
         .contact-sub { font-family: var(--font-mono); font-size: 15px; color: var(--muted); max-width: 380px; line-height: 1.7; }
         .contact-direct { margin-top: 34px; font-family: var(--font-mono); font-size: 14px; color: var(--muted); }
