@@ -2,27 +2,42 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const WORDS = ["AI Systems.", "Agent Workflows.", "SaaS Platforms.", "Elite Software."];
+const WORDS = [
+  "AI Systems.",
+  "Agent Workflows.",
+  "SaaS Platforms.",
+  "Elite Software.",
+];
 
 const LOG_STEPS = [
   { level: "sys", text: "Initializing Aether Orchestrator v4.2.0..." },
   { level: "agent", text: "Planner Agent: Formulating execution trajectory." },
   { level: "tool", text: "Web Search: Scraping documentation for API schema." },
-  { level: "agent", text: "Executor Agent: Synthesizing clean TypeScript components." },
+  {
+    level: "agent",
+    text: "Executor Agent: Synthesizing clean TypeScript components.",
+  },
   { level: "sys", text: "Running verification suite: 12 tests passed." },
-  { level: "success", text: "Deployment finalized. Live at aether-app-92.prod" },
+  {
+    level: "success",
+    text: "Deployment finalized. Live at aether-app-92.prod",
+  },
 ];
 
 export default function Hero() {
   const [typeText, setTypeText] = useState("");
   const [cursorBlink, setCursorBlink] = useState(false);
   const typeRef = useRef({ w: 0, c: 0, deleting: false });
-  
+
   // Dashboard states
   const [activeNode, setActiveNode] = useState(0);
   const [logs, setLogs] = useState<typeof LOG_STEPS>([]);
   const [progress, setProgress] = useState(0);
-  const [metrics, setMetrics] = useState({ tokens: 385, latency: 120, total: 12840 });
+  const [metrics, setMetrics] = useState({
+    tokens: 385,
+    latency: 120,
+    total: 12840,
+  });
 
   // Typewriter
   useEffect(() => {
@@ -34,8 +49,15 @@ export default function Hero() {
       setTypeText(word.slice(0, s.c));
       let delay = s.deleting ? 45 : 95;
       let blink = false;
-      if (!s.deleting && s.c === word.length) { delay = 2000; s.deleting = true; blink = true; }
-      else if (s.deleting && s.c === 0) { s.deleting = false; s.w = (s.w + 1) % WORDS.length; delay = 350; }
+      if (!s.deleting && s.c === word.length) {
+        delay = 2000;
+        s.deleting = true;
+        blink = true;
+      } else if (s.deleting && s.c === 0) {
+        s.deleting = false;
+        s.w = (s.w + 1) % WORDS.length;
+        delay = 350;
+      }
       setCursorBlink(blink);
       timer = setTimeout(tick, delay);
     }
@@ -47,20 +69,20 @@ export default function Hero() {
   useEffect(() => {
     let logIdx = 0;
     const logInterval = setInterval(() => {
-      setLogs(prev => {
+      setLogs((prev) => {
         const nextLogs = [...prev, LOG_STEPS[logIdx]];
         if (nextLogs.length > 4) nextLogs.shift();
         return nextLogs;
       });
-      
+
       // Rotate active node
       setActiveNode(logIdx % 4);
-      
+
       // Update metrics slightly for dynamism
-      setMetrics(prev => ({
+      setMetrics((prev) => ({
         tokens: Math.floor(350 + Math.random() * 80),
         latency: Math.floor(100 + Math.random() * 40),
-        total: prev.total + 1
+        total: prev.total + 1,
       }));
 
       logIdx = (logIdx + 1) % LOG_STEPS.length;
@@ -68,7 +90,7 @@ export default function Hero() {
 
     // Progress bar loop
     const progressInterval = setInterval(() => {
-      setProgress(prev => {
+      setProgress((prev) => {
         if (prev >= 100) return 0;
         return prev + 1;
       });
@@ -100,21 +122,34 @@ export default function Hero() {
         <div className="hero-grid">
           {/* Left Panel */}
           <div className="hero-left">
-            <span className="label reveal mb-4"><span className="n">★</span> AETHER ORCHESTRATION STUDIO</span>
+            <span className="label reveal mb-4">
+              <span className="n">★</span> AETHER ORCHESTRATION STUDIO
+            </span>
             <h1 className="reveal hero-h1">
-              We build<br />what&rsquo;s <span className="hero-accent">next.</span>
+              We build
+              <br />
+              what&rsquo;s <span className="hero-accent">next.</span>
             </h1>
             <p className="hero-sub reveal">
-              We build web apps, mobile apps, AI agents &amp; SaaS platforms &mdash; end-to-end, from architecture to launch.
+              We build web apps, mobile apps, AI agents &amp; SaaS platforms
+              &mdash; end-to-end, from architecture to launch.
             </p>
             <div className="typewriter-container reveal">
               <span className="terminal-prompt">&gt;</span> engineering_status:{" "}
-              <span className="type-text" id="typeText">{typeText}</span>
-              <span className={`type-caret${cursorBlink ? " type-caret-blink" : ""}`} />
+              <span className="type-text" id="typeText">
+                {typeText}
+              </span>
+              <span
+                className={`type-caret${cursorBlink ? " type-caret-blink" : ""}`}
+              />
             </div>
-            <div className="hero-ctas reveal">
-              <a href="#contact" className="btn btn-primary">Partner With Us</a>
-              <a href="#work" className="btn btn-ghost">Explore Work</a>
+            <div className="hero-ctas reveal desktop-ctas">
+              <a href="#contact" className="btn btn-primary">
+                Partner With Us
+              </a>
+              <a href="#work" className="btn btn-ghost">
+                Explore Work
+              </a>
             </div>
           </div>
 
@@ -132,8 +167,18 @@ export default function Hero() {
               {/* Connector line 1 */}
               <div className="flow-connector">
                 <svg viewBox="0 0 40 80" className="connector-svg">
-                  <path d="M20,0 L20,80" stroke="var(--border-2)" strokeWidth="1.5" strokeDasharray="4 4" />
-                  <circle cx="20" cy={progress * 0.8} r="3" fill="var(--accent)" />
+                  <path
+                    d="M20,0 L20,80"
+                    stroke="var(--border-2)"
+                    strokeWidth="1.5"
+                    strokeDasharray="4 4"
+                  />
+                  <circle
+                    cx="20"
+                    cy={progress * 0.8}
+                    r="3"
+                    fill="var(--accent)"
+                  />
                 </svg>
               </div>
 
@@ -148,8 +193,18 @@ export default function Hero() {
               {/* Connector line 2 */}
               <div className="flow-connector">
                 <svg viewBox="0 0 40 80" className="connector-svg">
-                  <path d="M20,0 L20,80" stroke="var(--border-2)" strokeWidth="1.5" strokeDasharray="4 4" />
-                  <circle cx="20" cy={progress * 0.8} r="3" fill="var(--accent)" />
+                  <path
+                    d="M20,0 L20,80"
+                    stroke="var(--border-2)"
+                    strokeWidth="1.5"
+                    strokeDasharray="4 4"
+                  />
+                  <circle
+                    cx="20"
+                    cy={progress * 0.8}
+                    r="3"
+                    fill="var(--accent)"
+                  />
                 </svg>
               </div>
 
@@ -174,9 +229,20 @@ export default function Hero() {
             { bold: "End-to-End", rest: " Delivery" },
           ].map((t, i) => (
             <div key={i} className={`trust-badge${i === 0 ? " first" : ""}`}>
-              <b>{t.bold}</b>{t.rest}
+              <b>{t.bold}</b>
+              {t.rest}
             </div>
           ))}
+        </div>
+
+        {/* Mobile CTAs (visible only on mobile) */}
+        <div className="hero-ctas reveal mobile-ctas">
+          <a href="#contact" className="btn btn-primary">
+            Partner With Us
+          </a>
+          <a href="#work" className="btn btn-ghost">
+            Explore Work
+          </a>
         </div>
       </div>
 
@@ -301,6 +367,7 @@ export default function Hero() {
           color: var(--white);
           transform: translateX(3px);
         }
+        .mobile-ctas { display: none; }
 
         /* === INTERACTIVE DASHBOARD ===        /* === MINIMALIST ORCHESTRATOR FLOW === */
         .orchestrator-flow {
@@ -410,14 +477,54 @@ export default function Hero() {
         .trust-badge.first { padding-left: 0; border-left: 0; }
 
         /* === RESPONSIVE === */
-        @media (max-width: 1040px) {
-          .hero-grid { grid-template-columns: 1fr; gap: 50px; }
-          .orchestrator-flow { max-width: 560px; margin: 0 auto; }
+        @media (max-width: 900px) {
+          .desktop-ctas { display: none !important; }
+          .mobile-ctas { display: flex; margin-top: 36px; margin-bottom: 8px; justify-content: flex-start; gap: 16px; }
+          .hero-grid {
+            grid-template-columns: 1fr;
+            gap: 24px;
+          }
+          .hero-trust {
+            margin-top: 40px;
+            padding-top: 24px;
+            gap: 16px;
+          }
+          .orchestrator-flow {
+            max-width: 100%;
+            flex-direction: row;
+            align-items: stretch;
+            gap: 0;
+            justify-content: center;
+          }
+          .flow-card {
+            flex: 1;
+            padding: 16px 14px;
+            border-radius: 12px;
+            min-width: 0;
+          }
+          .flow-card h4 { font-size: 15px; margin-bottom: 2px; line-height: 1.2; }
+          .flow-card p { font-size: 11px; line-height: 1.3; }
+          .card-badge { font-size: 9px; margin-bottom: 4px; letter-spacing: 0.03em; }
+          .flow-indicator { top: 12px; right: 12px; width: 6px; height: 6px; }
+          .flow-connector {
+            height: auto;
+            width: 24px;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            align-self: center;
+          }
+          .connector-svg {
+            width: 24px;
+            height: 40px;
+            transform: rotate(90deg);
+          }
         }
         @media (max-width: 760px) {
-          .hero { padding: 120px 0 70px; }
-          .hero-trust { gap: 16px; }
-          .trust-badge { padding-left: 16px; }
+          .hero { padding: 90px 0 40px; }
+          .hero-trust { margin-top: 30px; padding-top: 16px; }
+          .trust-badge { padding-left: 14px; }
           .typewriter-container {
             width: 100%;
             font-size: 12px;
@@ -425,16 +532,48 @@ export default function Hero() {
           }
         }
         @media (max-width: 600px) {
+          .mobile-ctas { flex-direction: column; align-items: stretch; gap: 12px; margin-top: 24px; }
+          .mobile-ctas .btn { justify-content: center; }
           .hero-h1 { font-size: clamp(38px, 10vw, 56px); }
-          .hero-ctas { flex-direction: column; align-items: stretch; gap: 12px; }
-          .hero-ctas .btn { justify-content: center; }
-          .orchestrator-flow { max-width: 100%; }
-          .trust-badge { font-size: 12px; border-left: none; padding-left: 0; width: 100%; }
+
+          /* --- Extra compact horizontal orchestrator flow on mobile --- */
+          .flow-card {
+            padding: 10px 8px;
+            border-radius: 8px;
+          }
+          .flow-card h4 { font-size: 12px; }
+          .flow-card p { font-size: 9.5px; }
+          .card-badge { font-size: 8px; }
+          .flow-indicator { top: 8px; right: 8px; width: 5px; height: 5px; }
+          .flow-connector { width: 16px; }
+          .connector-svg { width: 16px; height: 30px; }
+
+          /* --- Compact trust badges: 2-col pill grid --- */
+          .hero-trust {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+            margin-top: 20px;
+            padding-top: 14px;
+            border-top: 1px solid rgba(255,255,255,0.12);
+          }
+          .trust-badge {
+            font-size: 10.5px;
+            border-left: none;
+            padding: 6px 10px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 6px;
+            width: 100%;
+            text-align: left;
+          }
+          .trust-badge.first { padding: 6px 10px; border-left: none; padding-left: 10px; }
           .typewriter-container {
             width: 100%;
-            font-size: 11.5px;
-            padding: 9px 16px;
-            gap: 6px;
+            font-size: 11px;
+            padding: 8px 14px;
+            gap: 4px;
+            margin-bottom: 24px;
           }
         }
       `}</style>
