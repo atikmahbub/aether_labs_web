@@ -4,197 +4,350 @@ import { useEffect, useRef, useState } from "react";
 
 const WORDS = ["Web Apps.", "Mobile Apps.", "AI Agents.", "SaaS Products."];
 
+const K = "kw", T = "ty", F = "fn", S = "str", C = "cm", V = "va", P = "pr", X = "p";
+const CODE = [
+  [[K, "import"], [X, " { "], [T, "Agent"], [X, " } "], [K, "from"], [X, " "], [S, '"@aether/core"'], [X, ";"]],
+  [[K, "import"], [X, " { "], [F, "anthropic"], [X, " } "], [K, "from"], [X, " "], [S, '"@aether/llm"'], [X, ";"]],
+  [],
+  [[C, "// Spin up an autonomous research agent"]],
+  [[K, "export"], [X, " "], [K, "const"], [X, " "], [V, "agent"], [X, " = "], [K, "new"], [X, " "], [T, "Agent"], [X, "({"]],
+  [[X, "  "], [P, "model"], [X, ": "], [F, "anthropic"], [X, "("], [S, '"claude-sonnet-4-6"'], [X, "),"]],
+  [[X, "  "], [P, "tools"], [X, ": ["], [V, "search"], [X, ", "], [V, "summarize"], [X, ", "], [V, "ship"], [X, "],"]],
+  [[X, "  "], [P, "memory"], [X, ": "], [K, "true"], [X, ","]],
+  [[X, "});"]],
+  [],
+  [[K, "const"], [X, " "], [V, "result"], [X, " = "], [K, "await"], [X, " "], [V, "agent"], [X, "."], [F, "run"], [X, "("]],
+  [[X, "  "], [S, '"Design the next big thing."'], [X, ")"]],
+] as [string, string][][];
+
+function esc(s: string) { return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+function lineLen(toks: [string, string][]) { return toks.reduce((n, t) => n + t[1].length, 0); }
+function lineHTML(toks: [string, string][], limit?: number) {
+  let out = "", used = 0;
+  for (const [cls, text] of toks) {
+    let t = text;
+    if (limit != null) {
+      if (used >= limit) break;
+      const remain = limit - used;
+      if (remain < text.length) t = text.slice(0, remain);
+    }
+    out += `<span class="tk-${cls}">${esc(t)}</span>`;
+    used += t.length;
+    if (limit != null && used >= limit) break;
+  }
+  return out;
+}
+function rowHTML(i: number, codeHTML: string) {
+  return `<div class="ln"><span class="g">${i + 1}</span><span class="c">${codeHTML}</span></div>`;
+}
+
 export default function Hero() {
   const [typeText, setTypeText] = useState("");
-  const stateRef = useRef({ w: 0, c: 0, deleting: false });
+  const [cursorBlink, setCursorBlink] = useState(false);
+  const typeRef = useRef({ w: 0, c: 0, deleting: false });
+  const editorBlinkRef = useRef(false);
 
+  const preRef = useRef<HTMLPreElement>(null);
+  const statRef = useRef<HTMLSpanElement>(null);
+  const posRef = useRef<HTMLSpanElement>(null);
+
+  // Typewriter
   useEffect(() => {
     let timer: ReturnType<typeof setTimeout>;
     function tick() {
-      const s = stateRef.current;
+      const s = typeRef.current;
       const word = WORDS[s.w];
       s.c += s.deleting ? -1 : 1;
       setTypeText(word.slice(0, s.c));
       let delay = s.deleting ? 45 : 95;
-      if (!s.deleting && s.c === word.length) { delay = 1500; s.deleting = true; }
+      let blink = false;
+      if (!s.deleting && s.c === word.length) { delay = 1500; s.deleting = true; blink = true; }
       else if (s.deleting && s.c === 0) { s.deleting = false; s.w = (s.w + 1) % WORDS.length; delay = 350; }
+      setCursorBlink(blink);
       timer = setTimeout(tick, delay);
     }
     tick();
     return () => clearTimeout(timer);
   }, []);
 
+  // Code editor animation
+  useEffect(() => {
+    const pre = preRef.current!;
+    if (!pre) return;
+    const statEl = statRef.current;
+    const posEl = posRef.current;
+
+    const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) {
+      let html = "";
+      for (let i = 0; i < CODE.length; i++) html += rowHTML(i, lineHTML(CODE[i]));
+      pre.innerHTML = html;
+      if (statEl) { statEl.textContent = "✓ saved"; statEl.className = "ok"; }
+      if (posEl) posEl.textContent = `Ln ${CODE.length}, Col 1`;
+      return;
+    }
+
+    let li = 0, ci = 0;
+    let timer: ReturnType<typeof setTimeout>;
+
+    function render() {
+      let html = "";
+      for (let i = 0; i <= li && i < CODE.length; i++) {
+        if (i < li) { html += rowHTML(i, lineHTML(CODE[i])); }
+        else { html += rowHTML(i, lineHTML(CODE[i], ci) + `<span class="editor-caret${editorBlinkRef.current ? " blinking" : ""}"></span>`); }
+      }
+      pre.innerHTML = html;
+      if (posEl) posEl.textContent = `Ln ${li + 1}, Col ${ci + 1}`;
+    }
+
+    function finish() {
+      editorBlinkRef.current = true;
+      render();
+      if (statEl) { statEl.textContent = "✓ saved"; statEl.className = "ok"; }
+      timer = setTimeout(() => {
+        li = 0; ci = 0;
+        editorBlinkRef.current = false;
+        if (statEl) { statEl.textContent = "● typing…"; statEl.className = "dot"; }
+        render();
+        schedule(500);
+      }, 3400);
+    }
+
+    function tick() {
+      const len = lineLen(CODE[li]);
+      if (ci < len) { ci++; render(); schedule(20 + Math.random() * 45); }
+      else if (li < CODE.length - 1) { li++; ci = 0; render(); schedule(CODE[li - 1].length === 0 ? 90 : 150); }
+      else { finish(); }
+    }
+
+    function schedule(ms: number) { timer = setTimeout(tick, ms); }
+    render();
+    schedule(900);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Reveal hero elements
   useEffect(() => {
     const els = document.querySelectorAll(".hero .reveal");
-    const observer = new IntersectionObserver(
-      (entries) => entries.forEach((e, i) => {
-        if (e.isIntersecting) {
-          setTimeout(() => e.target.classList.add("in"), i * 70);
-          observer.unobserve(e.target);
-        }
-      }),
-      { threshold: 0.12 }
-    );
-    els.forEach((el) => observer.observe(el));
-    setTimeout(() => els.forEach((el) => el.classList.add("in")), 400);
-    return () => observer.disconnect();
+    els.forEach((el, i) => {
+      setTimeout(() => el.classList.add("in"), 100 + i * 100);
+    });
   }, []);
 
   return (
     <header className="hero">
-      {/* Blobs */}
-      <div className="hero-mesh">
-        <div className="blob-1 hero-blob" style={{ background: "radial-gradient(circle,rgba(0,229,204,0.55),transparent 65%)", top: -180, left: -120 }} />
-        <div className="blob-2 hero-blob" style={{ background: "radial-gradient(circle,rgba(123,94,255,0.55),transparent 65%)", top: -60, right: -160 }} />
-        <div className="blob-3 hero-blob" style={{ background: "radial-gradient(circle,rgba(0,150,255,0.35),transparent 65%)", bottom: -220, left: "40%" }} />
-      </div>
-
-      {/* Dot grid */}
       <div className="hero-dotgrid" />
-
-      <div className="wrap-inner" style={{ position: "relative", zIndex: 2 }}>
-        <div className="hero-inner">
-          <span className="reveal hero-label">
-            <span style={{ width: 22, height: 1, background: "linear-gradient(90deg,transparent,var(--cyan))", display: "inline-block", flexShrink: 0 }} />
-            Software Development Studio
-          </span>
-
-          <h1 className="reveal hero-h1">
-            We design, build, and scale{" "}
-            <span className="hero-em">digital products</span>{" "}
-            that define the future.
-          </h1>
-
-          <p className="reveal hero-sub">
-            Full-stack web apps. Mobile experiences. AI-powered systems. From idea to launch — we engineer excellence. We build{" "}
-            <span style={{ display: "inline-flex", alignItems: "baseline" }}>
-              <span style={{ color: "var(--cyan)" }}>{typeText}</span>
-              <span className="caret-blink" style={{ display: "inline-block", width: 3, height: "0.92em", background: "var(--cyan)", marginLeft: 4, transform: "translateY(3px)" }} />
-            </span>
-          </p>
-
-          <div className="reveal hero-ctas">
-            <a href="#contact" className="btn-primary-pill"
-              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 12px 40px -8px rgba(0,229,204,0.7)"; }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.transform = ""; (e.currentTarget as HTMLElement).style.boxShadow = "0 6px 30px -8px rgba(0,229,204,0.55)"; }}
-            >
-              Start a Project <span>→</span>
-            </a>
-            <a href="#services" className="btn-ghost-pill"
-              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.06)"; (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)"; }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.02)"; (e.currentTarget as HTMLElement).style.transform = ""; }}
-            >
-              See Our Services
-            </a>
+      <div className="wrap">
+        <div className="hero-grid">
+          {/* Left */}
+          <div className="hero-left">
+            <h1 className="reveal hero-h1">
+              We build<br />what&rsquo;s <span className="hero-accent">next.</span>
+            </h1>
+            <p className="hero-sub reveal">
+              We design, build, and scale digital products that define the future.
+              Full-stack web, mobile &amp; AI — from idea to launch.<br />
+              We engineer{" "}
+              <span className="type-text" id="typeText">{typeText}</span>
+              <span className={`type-caret${cursorBlink ? " type-caret-blink" : ""}`} />
+            </p>
+            <div className="hero-ctas reveal">
+              <a href="#contact" className="btn btn-primary">Start a project →</a>
+              <a href="#services" className="hero-link-u on-orange">See our services</a>
+            </div>
           </div>
 
-          {/* Trust badges */}
-          <div className="reveal trust-row">
-            {[
-              { bold: "6+ Years", rest: " Experience" },
-              { bold: "MERN", rest: " Specialists" },
-              { bold: "React Native", rest: "" },
-              { bold: "AI Systems", rest: "" },
-              { bold: "End-to-End", rest: " Delivery" },
-            ].map((t, i) => (
-              <div key={i} className={`trust-badge${i === 0 ? " trust-badge--first" : ""}`}>
-                <b style={{ color: "var(--heading)", fontWeight: 400 }}>{t.bold}</b>{t.rest}
+          {/* Right — Code Editor */}
+          <div className="hero-right reveal">
+            <div className="shot">
+              <div className="shot-bar">
+                <div className="shot-lights">
+                  <i /><i /><i />
+                </div>
+                <div className="shot-tabs">
+                  <div className="shot-tab active"><span className="badge ts">TS</span>agent.ts</div>
+                  <div className="shot-tab"><span className="badge js">JS</span>server.js</div>
+                </div>
               </div>
-            ))}
+              <div className="shot-body">
+                <pre ref={preRef} id="editorCode" aria-hidden="true" />
+              </div>
+              <div className="shot-status">
+                <div className="sl"><span className="ok">✓ 0 errors</span><span>⎇ main</span></div>
+                <div className="sr">
+                  <span ref={statRef} id="editorStat" className="dot">● typing…</span>
+                  <span ref={posRef} id="editorPos">Ln 1, Col 1</span>
+                  <span>UTF-8</span>
+                </div>
+              </div>
+            </div>
           </div>
+        </div>
+
+        {/* Trust badges */}
+        <div className="hero-trust reveal">
+          {[
+            { bold: "6+ Years", rest: " Experience" },
+            { bold: "MERN", rest: " Specialists" },
+            { bold: "React Native", rest: "" },
+            { bold: "AI Systems", rest: "" },
+            { bold: "End-to-End", rest: " Delivery" },
+          ].map((t, i) => (
+            <div key={i} className={`trust-badge${i === 0 ? " first" : ""}`}>
+              <b>{t.bold}</b>{t.rest}
+            </div>
+          ))}
         </div>
       </div>
 
       <style>{`
         .hero {
-          padding: 180px 0 120px;
-          position: relative;
-          overflow: hidden;
+          position: relative; overflow: hidden;
+          background: linear-gradient(176deg, #180d06 0%, #7d300d 36%, #d8500f 72%, #ff7a26 100%);
+          padding: 150px 0 86px;
+          margin: 0 12px;
+          border-radius: 0 0 4px 4px;
         }
-        .hero-mesh {
-          position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none;
-        }
-        .hero-blob {
-          position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.5; will-change: transform;
-        }
-        .blob-1.hero-blob { width: 620px; height: 620px; }
-        .blob-2.hero-blob { width: 560px; height: 560px; }
-        .blob-3.hero-blob { width: 480px; height: 480px; }
         .hero-dotgrid {
           position: absolute; inset: 0; z-index: 0; pointer-events: none;
-          background-image: radial-gradient(circle, rgba(255,255,255,0.09) 1px, transparent 1px);
-          background-size: 28px 28px;
-          mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, #000 30%, transparent 75%);
-          -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, #000 30%, transparent 75%);
+          background-image: radial-gradient(circle, rgba(0,0,0,0.18) 1px, transparent 1px);
+          background-size: 26px 26px;
+          mask-image: radial-gradient(ellipse 90% 80% at 30% 30%, #000 20%, transparent 80%);
+          -webkit-mask-image: radial-gradient(ellipse 90% 80% at 30% 30%, #000 20%, transparent 80%);
+          opacity: 0.5;
         }
-        .hero-inner { max-width: 920px; }
-        .hero-label {
-          font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.22em;
-          text-transform: uppercase; color: var(--cyan);
-          display: inline-flex; align-items: center; gap: 10px; margin-bottom: 26px;
+        .hero-grid {
+          position: relative; z-index: 2;
+          display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 48px; align-items: center;
         }
         .hero-h1 {
-          font-size: clamp(36px, 6.4vw, 82px);
-          font-weight: 700; letter-spacing: -0.03em; margin-bottom: 28px;
+          font-size: clamp(48px, 7.4vw, 104px);
+          font-weight: 900; text-transform: uppercase; color: #fff;
+          letter-spacing: -0.03em; line-height: 0.92; margin-bottom: 26px;
+          text-shadow: 0 2px 30px rgba(0,0,0,0.22);
         }
-        .hero-em {
-          background: linear-gradient(120deg, var(--cyan), var(--violet));
-          -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-        }
+        .hero-accent { color: #160a03; }
         .hero-sub {
-          font-size: clamp(16px, 2.4vw, 20px);
-          color: var(--body); max-width: 640px; margin-bottom: 40px; line-height: 1.6;
+          font-family: var(--font-mono); font-size: 15.5px;
+          color: #160a03; max-width: 460px; margin-bottom: 30px; line-height: 1.75;
         }
-        .hero-ctas {
-          display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 48px; align-items: center;
+        .type-caret {
+          display: inline-block; width: 2px; height: 0.92em;
+          background: #160a03; margin-left: 3px; vertical-align: -2px;
         }
-        .btn-primary-pill {
-          font-family: var(--font-body); font-weight: 600; font-size: 15.5px;
-          border-radius: 100px; padding: 13px 24px;
-          background: linear-gradient(180deg, #00f5da, #00c4af); color: #021712;
-          box-shadow: 0 6px 30px -8px rgba(0,229,204,0.55);
-          display: inline-flex; align-items: center; gap: 9px;
-          transition: transform 0.25s, box-shadow 0.25s; white-space: nowrap;
+        .type-caret-blink { animation: tblink 1s step-end infinite; }
+        @keyframes tblink { 0%,100% { opacity:1; } 50% { opacity:0; } }
+        .type-text {
+          color: #160a03; font-weight: 700; display: inline-block; min-width: 140px; text-align: left;
         }
-        .btn-ghost-pill {
-          font-family: var(--font-body); font-weight: 500; font-size: 15.5px;
-          border-radius: 100px; padding: 13px 24px;
-          background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.14);
-          color: var(--heading); display: inline-flex; align-items: center; gap: 9px;
-          transition: transform 0.25s, background 0.25s; white-space: nowrap;
+        .hero-ctas { display: flex; gap: 24px; align-items: center; flex-wrap: wrap; }
+        .hero-link-u {
+          font-family: var(--font-mono); font-size: 14px; color: var(--white);
+          display: inline-flex; align-items: center; gap: 8px;
+          position: relative; padding-bottom: 3px;
         }
-        .trust-row {
-          display: flex; flex-wrap: wrap; align-items: center; gap: 4px 0;
+        .hero-link-u::after {
+          content: ""; position: absolute; left: 0; bottom: 0;
+          width: 100%; height: 1px; background: currentColor;
+          transform-origin: left; transition: transform 0.3s;
+        }
+        .hero-link-u:hover::after { transform: scaleX(0.4); }
+        .hero-link-u.on-orange { color: #160a03; }
+
+        /* === CODE EDITOR === */
+        .shot {
+          position: relative; border-radius: 12px; overflow: hidden;
+          background: #0d0c0a; border: 1px solid rgba(0,0,0,0.4);
+          box-shadow: 0 40px 90px -34px rgba(0,0,0,0.72);
+          font-family: var(--font-mono);
+        }
+        .shot-bar {
+          height: 40px; background: #15130f; border-bottom: 1px solid rgba(255,255,255,0.06);
+          display: flex; align-items: stretch; gap: 16px; padding-left: 14px;
+        }
+        .shot-lights { display: flex; gap: 7px; align-items: center; }
+        .shot-lights i { width: 11px; height: 11px; border-radius: 50%; }
+        .shot-lights i:nth-child(1) { background: #ff5f57; }
+        .shot-lights i:nth-child(2) { background: #febc2e; }
+        .shot-lights i:nth-child(3) { background: #28c840; }
+        .shot-tabs { display: flex; align-items: stretch; }
+        .shot-tab {
+          display: flex; align-items: center; gap: 8px; padding: 0 16px;
+          font-size: 12px; color: var(--dim);
+          border-bottom: 2px solid transparent; border-right: 1px solid rgba(255,255,255,0.04);
+        }
+        .shot-tab.active { color: var(--white); background: #0d0c0a; border-bottom-color: var(--accent); }
+        .badge {
+          width: 15px; height: 15px; border-radius: 3px; font-size: 8px; font-weight: 800;
+          display: flex; align-items: center; justify-content: center;
+          font-family: var(--font-head); color: #fff;
+        }
+        .badge.ts { background: #3178c6; }
+        .badge.js { background: #e8b339; color: #160a03; }
+        .shot-body { min-height: 300px; padding: 14px 0; overflow: hidden; }
+        .shot-body pre { margin: 0; font-family: var(--font-mono); font-size: 13px; line-height: 1.72; }
+        .ln { display: flex; }
+        .ln .g { width: 46px; flex-shrink: 0; text-align: right; padding-right: 18px; color: #4a443c; user-select: none; }
+        .ln .c { white-space: pre; color: #cfc8bd; }
+        .editor-caret {
+          display: inline-block; width: 7px; height: 14px; background: var(--accent);
+          vertical-align: -2px; margin-left: 1px;
+        }
+        .editor-caret.blinking { animation: eblink 1.05s step-end infinite; }
+        @keyframes eblink { 0%,100% { opacity:1; } 50% { opacity:0; } }
+        .shot-status {
+          height: 30px; background: #15130f; border-top: 1px solid rgba(255,255,255,0.06);
+          display: flex; align-items: center; justify-content: space-between;
+          padding: 0 14px; font-size: 11px; color: var(--muted);
+        }
+        .sl, .sr { display: flex; align-items: center; gap: 16px; }
+        .dot { color: var(--accent); }
+        .ok { color: #28c840; }
+        /* syntax tokens */
+        .tk-kw  { color: #ff8a4d; }
+        .tk-ty  { color: #5fc9b8; }
+        .tk-fn  { color: #e6c07b; }
+        .tk-str { color: #9fd88f; }
+        .tk-cm  { color: #6f675c; font-style: italic; }
+        .tk-va  { color: #f0ece4; }
+        .tk-pr  { color: #d98f6a; }
+        .tk-num { color: #c79bf0; }
+        .tk-p   { color: #8c857a; }
+
+        /* === TRUST === */
+        .hero-trust {
+          display: flex; flex-wrap: wrap; gap: 0; align-items: center;
+          margin-top: 46px; position: relative; z-index: 2;
         }
         .trust-badge {
-          font-family: var(--font-mono); font-size: 12.5px; color: var(--body-dim);
-          padding: 4px 16px; border-left: 1px solid var(--border);
+          font-family: var(--font-mono); font-size: 12.5px;
+          color: rgba(22,10,3,0.62); padding: 0 18px;
+          border-left: 1px solid rgba(22,10,3,0.22);
         }
-        .trust-badge--first { padding-left: 0; border-left: 0; }
+        .trust-badge b { color: #160a03; font-weight: 700; }
+        .trust-badge.first { padding-left: 0; border-left: 0; }
 
-        /* tablet */
-        @media (max-width: 980px) {
-          .hero { padding: 150px 0 100px; }
-          .blob-1.hero-blob { width: 440px; height: 440px; }
-          .blob-2.hero-blob { width: 400px; height: 400px; }
-          .blob-3.hero-blob { width: 360px; height: 360px; }
+        /* === RESPONSIVE === */
+        @media (max-width: 1040px) {
+          .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+          .shot { max-width: 560px; }
         }
-        /* mobile */
         @media (max-width: 760px) {
-          .hero { padding: 130px 0 80px; }
-          .hero-h1 { margin-bottom: 20px; }
-          .hero-sub { margin-bottom: 32px; }
-          .hero-ctas { margin-bottom: 36px; }
-          .blob-1.hero-blob, .blob-2.hero-blob, .blob-3.hero-blob { display: none; }
-          .trust-badge { padding: 4px 12px; font-size: 11.5px; }
+          .hero { padding: 128px 0 70px; margin: 0 6px; }
+          .trust-badge { padding: 0 14px; }
         }
-        /* small phones */
-        @media (max-width: 480px) {
-          .hero { padding: 110px 0 64px; }
-          .btn-primary-pill, .btn-ghost-pill { font-size: 14.5px; padding: 12px 20px; width: 100%; justify-content: center; }
-          .hero-ctas { flex-direction: column; gap: 10px; }
-          .trust-row { gap: 6px 0; }
-          .trust-badge { font-size: 11px; padding: 4px 10px; }
+        @media (max-width: 600px) {
+          .hero-h1 { font-size: clamp(38px, 11vw, 64px); }
+          .hero-sub { font-size: 15px; }
+          .hero-ctas { flex-direction: column; align-items: flex-start; gap: 14px; }
+          .shot { max-width: 100%; }
+          .shot-body { min-height: 240px; }
+          .shot-body pre { font-size: 11px; }
+          .trust-badge { font-size: 11.5px; padding: 0 10px; }
+        }
+        @media (max-width: 400px) {
+          .hero { margin: 0 4px; }
+          .hero-h1 { font-size: 36px; }
         }
       `}</style>
     </header>

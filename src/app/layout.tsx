@@ -1,19 +1,13 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, DM_Sans, Space_Mono } from "next/font/google";
+import { Archivo, Space_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 
-const spaceGrotesk = Space_Grotesk({
+const archivo = Archivo({
   subsets: ["latin"],
-  weight: ["500", "600", "700"],
+  weight: ["600", "700", "800", "900"],
   variable: "--font-head",
-});
-
-const dmSans = DM_Sans({
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  variable: "--font-body",
 });
 
 const spaceMono = Space_Mono({
@@ -23,7 +17,7 @@ const spaceMono = Space_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Aether Labs — We Build What's Next",
+  title: "Aether Labs® — We Build What's Next",
   description:
     "Full-stack web apps. Mobile experiences. AI-powered systems. From idea to launch — we engineer excellence.",
 };
@@ -32,11 +26,8 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html
-      lang="en"
-      className={`${spaceGrotesk.variable} ${dmSans.variable} ${spaceMono.variable}`}
-    >
-      <body style={{ fontFamily: "var(--font-body)" }}>
+    <html lang="en" className={`${archivo.variable} ${spaceMono.variable}`}>
+      <body>
         {children}
         <Analytics />
         <SpeedInsights />

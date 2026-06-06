@@ -1,11 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const navRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -18,170 +17,151 @@ export default function Navbar() {
     { href: "#services", label: "Services" },
     { href: "#work", label: "Work" },
     { href: "#about", label: "About" },
+    { href: "#testimonials", label: "Reviews" },
     { href: "#faq", label: "FAQ" },
-    { href: "#contact", label: "Contact" },
   ];
 
   return (
     <nav
-      ref={navRef}
-      style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 100,
-        transition: "background 0.35s, border-color 0.35s",
-        background: scrolled ? "rgba(5,8,16,0.72)" : "transparent",
-        backdropFilter: scrolled ? "blur(18px)" : undefined,
-        WebkitBackdropFilter: scrolled ? "blur(18px)" : undefined,
-        borderBottom: scrolled ? "1px solid rgba(255,255,255,0.08)" : "1px solid transparent",
-      }}
+      className={`site-nav${scrolled ? " scrolled" : ""}`}
+      id="nav"
     >
-      <div
-        style={{
-          maxWidth: 1200,
-          margin: "0 auto",
-          padding: scrolled ? "14px 28px" : "20px 28px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          transition: "padding 0.35s",
-        }}
-      >
+      <div className="nav-inner">
         {/* Brand */}
-        <a href="#top" style={{ display: "flex", alignItems: "center", gap: 12 }}>
-          <svg width="34" height="34" viewBox="0 0 40 40" fill="none" aria-hidden="true">
-            <defs>
-              <linearGradient id="navlg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
-                <stop offset="0" stopColor="#00e5cc" />
-                <stop offset="1" stopColor="#7b5eff" />
-              </linearGradient>
-            </defs>
-            <path d="M20 2 36 11 36 29 20 38 4 29 4 11Z" stroke="url(#navlg)" strokeWidth="1.6" fill="rgba(0,229,204,0.05)" />
-            <path d="M20 11 28 27 12 27Z" stroke="url(#navlg)" strokeWidth="1.6" fill="none" />
-            <circle cx="20" cy="22" r="2.4" fill="#00e5cc" />
+        <a className="brand" href="#top" aria-label="Aether Labs home">
+          <svg className="brand-mark" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+            <path d="M20 3 35 11.5 35 28.5 20 37 5 28.5 5 11.5Z" stroke="#ff5a1f" strokeWidth="2" fill="rgba(255,90,31,0.06)" />
+            <path d="M20 12 28 27 12 27Z" stroke="#ff5a1f" strokeWidth="2" fill="none" />
           </svg>
-          <span style={{ fontFamily: "var(--font-head)", fontWeight: 700, fontSize: 20, color: "var(--heading)", letterSpacing: "-0.02em" }}>
-            Aether Labs
+          <span className="brand-name">
+            Aether&nbsp;Labs<span style={{ color: "var(--accent)" }}>®</span>
           </span>
         </a>
 
         {/* Desktop Links */}
-        <div style={{ display: "flex", alignItems: "center", gap: 34 }} className="hidden-mobile">
+        <div className="nav-links" id="navLinks">
           {links.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              className="nav-link"
-              style={{ fontSize: 15, color: "var(--body)", transition: "color 0.2s" }}
-              onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "var(--heading)")}
-              onMouseLeave={(e) => ((e.target as HTMLElement).style.color = "var(--body)")}
-            >
+            <a key={l.href} href={l.href} className="nav-link-item">
               {l.label}
             </a>
           ))}
         </div>
 
         {/* Right */}
-        <div style={{ display: "flex", alignItems: "center", gap: 22 }}>
-          <a
-            href="#contact"
-            className="btn-desktop"
-            style={{
-              fontFamily: "var(--font-body)",
-              fontWeight: 600,
-              fontSize: 15.5,
-              borderRadius: 100,
-              padding: "14px 26px",
-              background: "linear-gradient(180deg,#00f5da,#00c4af)",
-              color: "#021712",
-              boxShadow: "0 6px 30px -8px rgba(0,229,204,0.55)",
-              transition: "transform 0.25s, box-shadow 0.25s",
-              whiteSpace: "nowrap",
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 9,
-            }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)";
-              (e.currentTarget as HTMLElement).style.boxShadow = "0 12px 40px -8px rgba(0,229,204,0.7)";
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLElement).style.transform = "";
-              (e.currentTarget as HTMLElement).style.boxShadow = "0 6px 30px -8px rgba(0,229,204,0.55)";
-            }}
-          >
-            Get a Quote
-          </a>
-          {/* Hamburger */}
+        <div className="nav-meta">
+          <a href="mailto:hello@aetherlabs.dev" className="nav-email">hello@aetherlabs.dev</a>
+          <a href="#contact" className="nav-cta">Contact us</a>
           <button
-            onClick={() => setMenuOpen(!menuOpen)}
+            className="menu-btn"
+            id="menuBtn"
             aria-label="Toggle menu"
-            className="menu-btn-visible"
-            style={{
-              background: "none",
-              border: 0,
-              cursor: "pointer",
-              flexDirection: "column",
-              gap: 5,
-              padding: 6,
-            }}
+            onClick={() => setMenuOpen(!menuOpen)}
           >
-            {[0, 1, 2].map((i) => (
-              <span
-                key={i}
-                style={{
-                  width: 24,
-                  height: 2,
-                  background: "var(--heading)",
-                  borderRadius: 2,
-                  display: "block",
-                  transition: "0.3s",
-                }}
-              />
-            ))}
+            <span />
+            <span />
+            <span />
           </button>
         </div>
       </div>
 
       {/* Mobile menu */}
       {menuOpen && (
-        <div
-          style={{
-            background: "rgba(5,8,16,0.96)",
-            backdropFilter: "blur(18px)",
-            borderBottom: "1px solid var(--border)",
-            padding: "8px 28px 22px",
-          }}
-        >
+        <div className="mobile-menu">
           {links.map((l) => (
             <a
               key={l.href}
               href={l.href}
+              className="mobile-link"
               onClick={() => setMenuOpen(false)}
-              style={{
-                display: "block",
-                padding: "13px 0",
-                borderBottom: "1px solid var(--border)",
-                fontSize: 15,
-                color: "var(--body)",
-              }}
             >
               {l.label}
             </a>
           ))}
+          <a href="#contact" className="mobile-link" style={{ color: "var(--accent)" }} onClick={() => setMenuOpen(false)}>
+            Contact us
+          </a>
         </div>
       )}
 
       <style>{`
-        .hidden-mobile { display: flex; }
-        .btn-desktop { display: inline-flex; }
-        .menu-btn-visible { display: none; }
+        .site-nav {
+          position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+          transition: background 0.35s, backdrop-filter 0.35s, border-color 0.35s;
+          border-bottom: 1px solid transparent;
+        }
+        .site-nav.scrolled {
+          background: rgba(11,10,8,0.82);
+          backdrop-filter: blur(16px);
+          -webkit-backdrop-filter: blur(16px);
+          border-bottom: 1px solid var(--border);
+        }
+        .nav-inner {
+          max-width: var(--maxw); margin: 0 auto;
+          padding: 22px 32px;
+          display: flex; align-items: center; justify-content: space-between; gap: 24px;
+          transition: padding 0.35s;
+        }
+        .site-nav.scrolled .nav-inner { padding: 15px 32px; }
+        .brand { display: flex; align-items: center; gap: 11px; }
+        .brand-mark { width: 26px; height: 26px; flex-shrink: 0; }
+        .brand-name {
+          font-family: var(--font-head); font-weight: 900; font-size: 18px;
+          color: var(--white); letter-spacing: -0.01em; text-transform: uppercase;
+        }
+        .nav-links { display: flex; align-items: center; gap: 30px; }
+        .nav-link-item {
+          font-family: var(--font-mono); font-size: 14px; color: var(--muted);
+          transition: color 0.2s;
+        }
+        .nav-link-item:hover { color: var(--white); }
+        .nav-meta { display: flex; align-items: center; gap: 26px; }
+        .nav-email {
+          font-family: var(--font-mono); font-size: 13.5px; color: var(--muted);
+          transition: color 0.2s;
+        }
+        .nav-email:hover { color: var(--white); }
+        .nav-cta {
+          font-family: var(--font-mono); font-size: 14px; color: var(--white);
+          position: relative; padding-bottom: 3px;
+          display: inline-flex; align-items: center; gap: 8px;
+        }
+        .nav-cta::after {
+          content: ""; position: absolute; left: 0; bottom: 0;
+          width: 100%; height: 1px; background: currentColor;
+          transform-origin: left; transition: transform 0.3s;
+        }
+        .nav-cta:hover::after { transform: scaleX(0.4); }
+        .menu-btn {
+          display: none; background: none; border: 0; cursor: pointer;
+          flex-direction: column; gap: 5px; padding: 6px;
+        }
+        .menu-btn span {
+          width: 24px; height: 2px; background: var(--white);
+          border-radius: 2px; display: block; transition: 0.3s;
+        }
+        .mobile-menu {
+          background: rgba(11,10,8,0.97);
+          backdrop-filter: blur(16px);
+          border-bottom: 1px solid var(--border);
+          padding: 8px 32px 22px;
+        }
+        .mobile-link {
+          display: block; padding: 13px 0;
+          border-bottom: 1px solid var(--border);
+          font-family: var(--font-mono); font-size: 14px; color: var(--muted);
+          transition: color 0.2s;
+        }
+        .mobile-link:hover { color: var(--white); }
+
         @media (max-width: 860px) {
-          .hidden-mobile { display: none !important; }
-          .btn-desktop { display: none !important; }
-          .menu-btn-visible { display: flex !important; }
+          .nav-links, .nav-email { display: none !important; }
+          .menu-btn { display: flex !important; }
+          .nav-cta { display: none !important; }
+        }
+        @media (max-width: 480px) {
+          .nav-inner { padding: 16px 20px !important; }
+          .site-nav.scrolled .nav-inner { padding: 12px 20px !important; }
+          .mobile-menu { padding: 8px 20px 18px; }
         }
       `}</style>
     </nav>

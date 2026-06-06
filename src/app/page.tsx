@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import Statement from "@/components/Statement";
 import LogoStrip from "@/components/LogoStrip";
 import Services from "@/components/Services";
 import Work from "@/components/Work";
@@ -24,28 +25,29 @@ export default function Home() {
       <span id="top" />
       <Navbar />
       <Hero />
+      <Statement />
       <LogoStrip />
-      <hr className="glow-divider" />
+      <hr className="divider" />
       <Services />
-      <hr className="glow-divider" />
+      <hr className="divider" />
       <Work />
       <Impact />
-      <hr className="glow-divider" />
+      <hr className="divider" />
       <Process />
-      <hr className="glow-divider" />
+      <hr className="divider" />
       <TechStack />
-      <hr className="glow-divider" />
+      <hr className="divider" />
       <Industries />
-      <hr className="glow-divider" />
+      <hr className="divider" />
       <WhyUs />
-      <hr className="glow-divider" />
+      <hr className="divider" />
       <About />
-      <hr className="glow-divider" />
+      <hr className="divider" />
       <Testimonials />
-      <hr className="glow-divider" />
+      <hr className="divider" />
       <Engagement />
       <FAQ />
-      <hr className="glow-divider" />
+      <hr className="divider" />
       <Contact />
       <Footer />
       <ScrollReveal />

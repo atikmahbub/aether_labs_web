@@ -10,25 +10,24 @@ const industries = [
 export default function Industries() {
   return (
     <section id="industries" className="section-pad">
-      <div className="wrap-inner">
-        <div className="reveal sec-head-mb" style={{ maxWidth: 680 }}>
-          <span className="section-label">
-            <span style={{ width: 22, height: 1, background: "linear-gradient(90deg,transparent,var(--cyan))", display: "inline-block", flexShrink: 0 }} />
-            <span className="label-n">05</span>Industries We Serve
-          </span>
-          <h2 className="sec-h2">Domain depth, not just code.</h2>
-          <p className="sec-p">We&apos;ve shipped production systems across regulated, high-stakes, and fast-moving industries.</p>
+      <div className="wrap">
+        <div className="sec-head reveal">
+          <span className="label"><span className="n">05</span> Industries</span>
+          <h2>Domain depth, not just code</h2>
+          <p>We&apos;ve shipped production systems across regulated, high-stakes, and fast-moving industries.</p>
         </div>
 
-        <div className="industries-grid">
+        <div className="ind-grid">
           {industries.map((item) => (
-            <div className="reveal industry-card" key={item.title}>
-              <div className="industry-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" width="22" height="22">{item.icon}</svg>
+            <div className="reveal ind-card" key={item.title}>
+              <div className="ind-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" width="21" height="21">
+                  {item.icon}
+                </svg>
               </div>
               <div>
-                <h3>{item.title}</h3>
-                <p>{item.desc}</p>
+                <h3 className="ind-title">{item.title}</h3>
+                <p className="ind-desc">{item.desc}</p>
               </div>
             </div>
           ))}
@@ -36,28 +35,27 @@ export default function Industries() {
       </div>
 
       <style>{`
-        .industries-grid {
-          display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
-          background: var(--border); border: 1px solid var(--border);
-          border-radius: var(--r); overflow: hidden;
+        .ind-grid {
+          display: grid; grid-template-columns: repeat(3, 1fr);
+          gap: 1px; background: var(--border); border: 1px solid var(--border);
         }
-        .industry-card {
-          background: var(--bg-2); padding: 32px 30px; display: flex;
-          align-items: flex-start; gap: 18px; transition: background 0.3s;
+        .ind-card {
+          background: var(--card-2); padding: 32px 30px;
+          display: flex; align-items: flex-start; gap: 18px; transition: background 0.3s;
         }
-        .industry-card:hover { background: #0c1320; }
-        .industry-icon {
-          width: 44px; height: 44px; flex-shrink: 0; border-radius: 11px;
+        .ind-card:hover { background: var(--card); }
+        .ind-icon {
+          width: 42px; height: 42px; flex-shrink: 0;
           display: flex; align-items: center; justify-content: center;
-          background: rgba(0,229,204,0.07); border: 1px solid rgba(0,229,204,0.18);
-          color: var(--cyan);
+          background: rgba(255,90,31,0.08); border: 1px solid rgba(255,90,31,0.22);
+          color: var(--accent);
         }
-        .industry-card h3 { font-size: 17.5px; font-weight: 700; margin-bottom: 6px; }
-        .industry-card p { font-size: 14px; color: var(--body); line-height: 1.5; }
-        @media (max-width: 980px) { .industries-grid { grid-template-columns: repeat(2, 1fr); } }
+        .ind-title { font-size: 16px; font-weight: 800; margin-bottom: 7px; text-transform: uppercase; }
+        .ind-desc { font-family: var(--font-mono); font-size: 13px; color: var(--muted); line-height: 1.55; }
+        @media (max-width: 980px) { .ind-grid { grid-template-columns: repeat(2, 1fr); } }
         @media (max-width: 600px) {
-          .industries-grid { grid-template-columns: 1fr; }
-          .industry-card { padding: 24px 22px; }
+          .ind-grid { grid-template-columns: 1fr; }
+          .ind-card { padding: 24px 22px; }
         }
       `}</style>
     </section>

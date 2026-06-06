@@ -16,22 +16,24 @@ export default function FAQ() {
 
   return (
     <section id="faq" className="section-pad">
-      <div className="wrap-inner">
-        <div className="reveal sec-head-mb faq-head">
-          <span className="section-label">
-            <span className="label-n">10</span>FAQ
-          </span>
-          <h2 className="sec-h2">Questions, answered.</h2>
+      <div className="wrap">
+        <div className="reveal faq-head">
+          <span className="label" style={{ justifyContent: "center" }}><span className="n">10</span> FAQ</span>
+          <h2 className="faq-h2">Questions, answered</h2>
         </div>
 
         <div className="reveal faq-wrap">
           {faqs.map(([question, answer], i) => (
             <div className={`faq-item${open === i ? " open" : ""}`} key={question}>
-              <button type="button" className="faq-question" onClick={() => setOpen(open === i ? -1 : i)}>
+              <button
+                type="button"
+                className="faq-q"
+                onClick={() => setOpen(open === i ? -1 : i)}
+              >
                 {question}
-                <span className="faq-plus" />
+                <span className="faq-pl" />
               </button>
-              <div className="faq-answer">
+              <div className="faq-a">
                 <p>{answer}</p>
               </div>
             </div>
@@ -40,30 +42,31 @@ export default function FAQ() {
       </div>
 
       <style>{`
-        .faq-head { max-width: 680px; margin-left: auto; margin-right: auto; text-align: center; }
-        .faq-head .section-label { justify-content: center; }
-        .faq-wrap { max-width: 860px; margin: 0 auto; border-top: 1px solid var(--border); }
+        .faq-head { max-width: 880px; margin: 0 auto; text-align: center; margin-bottom: 60px; }
+        .faq-h2 { font-size: clamp(36px, 5.6vw, 68px); text-transform: uppercase; font-weight: 900; line-height: 0.96; margin-top: 20px; }
+        .faq-wrap { max-width: 880px; margin: 0 auto; border-top: 1px solid var(--border); }
         .faq-item { border-bottom: 1px solid var(--border); }
-        .faq-question {
+        .faq-q {
           width: 100%; text-align: left; background: none; border: 0; cursor: pointer;
           padding: 26px 0; display: flex; justify-content: space-between; gap: 24px; align-items: center;
-          font-family: var(--font-head); font-weight: 600; font-size: 19px; color: var(--heading);
-          transition: color 0.2s;
+          font-family: var(--font-head); font-weight: 800; font-size: 19px; color: var(--white);
+          text-transform: uppercase; letter-spacing: -0.01em; transition: color 0.2s;
         }
-        .faq-question:hover { color: var(--cyan); }
-        .faq-plus { position: relative; width: 18px; height: 18px; flex-shrink: 0; }
-        .faq-plus::before, .faq-plus::after {
-          content: ""; position: absolute; background: var(--cyan); transition: transform 0.3s;
+        .faq-q:hover { color: var(--accent); }
+        .faq-pl { position: relative; width: 18px; height: 18px; flex-shrink: 0; }
+        .faq-pl::before, .faq-pl::after {
+          content: ""; position: absolute; background: var(--accent); transition: transform 0.3s;
         }
-        .faq-plus::before { top: 8px; left: 0; width: 18px; height: 2px; }
-        .faq-plus::after { left: 8px; top: 0; width: 2px; height: 18px; }
-        .faq-item.open .faq-plus::after { transform: scaleY(0); }
-        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
-        .faq-item.open .faq-answer { max-height: 320px; }
-        .faq-answer p { padding: 0 40px 28px 0; font-size: 15.5px; line-height: 1.65; color: var(--body); }
-        @media (max-width: 600px) {
-          .faq-question { font-size: 17px; padding: 22px 0; }
-          .faq-answer p { padding-right: 0; font-size: 15px; }
+        .faq-pl::before { top: 8px; left: 0; width: 18px; height: 2px; }
+        .faq-pl::after { left: 8px; top: 0; width: 2px; height: 18px; }
+        .faq-item.open .faq-pl::after { transform: scaleY(0); }
+        .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1); }
+        .faq-item.open .faq-a { max-height: 320px; }
+        .faq-a p { padding: 0 40px 28px 0; font-family: var(--font-mono); font-size: 14px; line-height: 1.7; color: var(--muted); }
+
+        @media (max-width: 760px) {
+          .faq-q { font-size: 16px; padding: 22px 0; }
+          .faq-a p { padding-right: 0; font-size: 13.5px; }
         }
       `}</style>
     </section>
