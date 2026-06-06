@@ -49,7 +49,6 @@ export default function Navbar() {
 
         {/* Right */}
         <div className="nav-meta">
-          <a href="mailto:hello@aetherlabs.dev" className="nav-email">hello@aetherlabs.dev</a>
           <a href="#contact" className="nav-cta">Contact us</a>
           <button
             className="menu-btn"

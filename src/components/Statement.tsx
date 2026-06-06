@@ -4,13 +4,13 @@ export default function Statement() {
       <div className="wrap">
         <span className="label reveal"><span className="n">00</span> Studio</span>
         <h2 className="stmt-big reveal">
-          We craft digital experiences that <em>connect brands with people.</em>
+          We build elite AI systems &amp; software for <em>ambitious companies.</em>
         </h2>
         <div className="stmt-cols">
-          <p className="reveal">We are a multidisciplinary software studio working with startups, founders, and growing companies worldwide. From strategy to design and engineering, we help companies stand out and grow with confidence.</p>
-          <p className="reveal">Aether Labs helps teams define their product, build strong technical foundations, and launch meaningful digital experiences that support real business growth.</p>
+          <p className="reveal">We are an elite software and AI product studio partnering with high-growth startups and visionary founders. We design, prototype, and build production-grade web systems, mobile platforms, and autonomous agent workflows.</p>
+          <p className="reveal">Aether Labs bridges the gap between complex model orchestration and intuitive product interfaces. We help teams establish solid technical architecture and deploy products that generate actual business value.</p>
         </div>
-        <div className="stmt-meta reveal">Global · Remote-first &nbsp;•&nbsp; Est. 2020</div>
+        <div className="stmt-meta reveal">MERN &amp; React Native Specialists &nbsp;•&nbsp; AI Agent Integrations &nbsp;•&nbsp; Built to Scale</div>
       </div>
 
       <style>{`

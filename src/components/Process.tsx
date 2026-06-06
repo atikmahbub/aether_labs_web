@@ -31,24 +31,31 @@ export default function Process() {
       <style>{`
         .proc-timeline {
           position: relative; display: grid; grid-template-columns: repeat(5, 1fr);
-          gap: 18px; margin-top: 20px;
+          gap: 24px; margin-top: 40px;
         }
         .proc-line {
-          position: absolute; top: 27px; left: 5%; right: 5%;
-          height: 1px; background: var(--border); z-index: 1;
+          position: absolute; top: 28px; left: 5%; right: 5%;
+          height: 1px; background: linear-gradient(90deg, var(--border), var(--accent), var(--border));
+          opacity: 0.6; z-index: 1;
         }
         .proc-step { position: relative; }
         .proc-num {
           width: 56px; height: 56px; border-radius: 50%;
-          background: var(--bg); border: 1px solid var(--border-2);
+          background: var(--card); border: 1px solid var(--border-2);
           display: flex; align-items: center; justify-content: center;
-          font-family: var(--font-head); font-weight: 800; font-size: 19px; color: var(--white);
+          font-family: var(--font-head); font-weight: 800; font-size: 18px; color: var(--accent);
           position: relative; z-index: 2; margin-bottom: 24px;
-          transition: border-color 0.3s, color 0.3s;
+          transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
-        .proc-step:hover .proc-num { border-color: var(--accent); color: var(--accent); }
-        .proc-title { font-size: 18px; font-weight: 800; margin-bottom: 9px; text-transform: uppercase; }
-        .proc-desc { font-family: var(--font-mono); font-size: 13px; color: var(--muted); line-height: 1.6; }
+        .proc-step:hover .proc-num {
+          border-color: var(--accent);
+          color: #000;
+          background: var(--accent);
+          box-shadow: 0 0 20px var(--accent-glow);
+          transform: scale(1.1);
+        }
+        .proc-title { font-size: 18px; font-weight: 800; margin-bottom: 9px; text-transform: uppercase; color: var(--white); }
+        .proc-desc { font-family: var(--font-head); font-size: 13.5px; color: var(--muted); line-height: 1.6; }
 
         @media (max-width: 980px) {
           .proc-timeline { grid-template-columns: repeat(2, 1fr); gap: 36px 18px; }

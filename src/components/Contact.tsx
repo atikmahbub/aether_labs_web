@@ -116,12 +116,13 @@ export default function Contact() {
         .contact-section { padding-bottom: 120px; }
         .contact-panel {
           position: relative; overflow: hidden; padding: 80px 60px;
-          background: #100d0a; border: 1px solid var(--border);
+          background: var(--card); border: 1px solid var(--border);
+          border-radius: 16px;
         }
         .contact-glow { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
         .glow-orb {
           position: absolute; width: 720px; height: 720px; border-radius: 50%;
-          background: radial-gradient(circle, rgba(255,90,31,0.28), transparent 60%);
+          background: radial-gradient(circle, rgba(224,90,31,0.22), transparent 60%);
           bottom: -360px; right: -160px; filter: blur(30px);
         }
         .contact-grid {
@@ -155,13 +156,13 @@ export default function Contact() {
         }
         .submit-btn {
           font-family: var(--font-mono); font-weight: 700; font-size: 14px;
-          border-radius: 100px; padding: 15px 28px; border: none; cursor: pointer;
-          background: var(--accent); color: #160a03;
-          box-shadow: 0 10px 34px -12px rgba(255,90,31,0.8);
+          border-radius: 100px; padding: 15px 28px; border: 1px solid rgba(255, 255, 255, 0.1); cursor: pointer;
+          background: var(--accent); color: #050505;
+          box-shadow: 0 8px 24px -8px rgba(224, 90, 31, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.25);
           width: 100%; display: flex; align-items: center; justify-content: center; gap: 9px;
           transition: transform 0.25s, box-shadow 0.25s, background 0.25s;
         }
-        .submit-btn:hover { background: #ff6a33; box-shadow: 0 16px 44px -12px rgba(255,90,31,0.95); }
+        .submit-btn:hover { background: #e06a35; box-shadow: 0 12px 32px -8px rgba(224, 90, 31, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.3); }
         .submit-btn:disabled { opacity: 0.7; }
 
         @media (max-width: 980px) {

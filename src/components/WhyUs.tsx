@@ -61,8 +61,8 @@ export default function WhyUs() {
         }
         .stat-big {
           font-family: var(--font-head); font-weight: 900;
-          font-size: clamp(36px, 4.6vw, 54px); color: var(--white);
-          letter-spacing: -0.03em; line-height: 1; margin-bottom: 16px; text-transform: uppercase;
+          font-size: clamp(28px, 3.4vw, 44px); color: var(--white);
+          letter-spacing: -0.03em; line-height: 1.05; margin-bottom: 16px; text-transform: uppercase;
         }
         .stat-big span { color: var(--accent); }
         .why-stat p { font-family: var(--font-mono); font-size: 14px; color: var(--muted); line-height: 1.65; }
