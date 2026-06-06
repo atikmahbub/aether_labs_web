@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Barlow_Condensed, Inter, Space_Mono } from "next/font/google";
+import { Barlow_Condensed, IBM_Plex_Sans, Space_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
@@ -10,7 +10,7 @@ const barlowCondensed = Barlow_Condensed({
   variable: "--font-head",
 });
 
-const inter = Inter({
+const ibmPlexSans = IBM_Plex_Sans({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   variable: "--font-body",
@@ -42,7 +42,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${barlowCondensed.variable} ${inter.variable} ${spaceMono.variable}`}>
+    <html lang="en" className={`${barlowCondensed.variable} ${ibmPlexSans.variable} ${spaceMono.variable}`}>
       <body>
         {children}
         <Analytics />

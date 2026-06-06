@@ -14,15 +14,15 @@
   --accent-deep:  #E04E10;
   --accent-glow:  rgba(255, 92, 26, 0.15);
   --white:        #FFFFFF;
-  --muted:        rgba(255, 255, 255, 0.55);
-  --dim:          rgba(255, 255, 255, 0.30);
+  --muted:        rgba(255, 255, 255, 0.74);
+  --dim:          rgba(255, 255, 255, 0.52);
 
   /* Layout */
   --maxw: 1200px;
 
   /* Fonts — overridden at runtime by Next.js font CSS variables on <html> */
   --font-head: "Barlow Condensed", sans-serif;
-  --font-body: "Inter", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", system-ui, sans-serif;
   --font-mono: "Space Mono", monospace;
 
   /* ── Type Scale ──────────────────────────────────────────
@@ -131,7 +131,7 @@ section { position: relative; }
    ============================================================ */
 .label {
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: 14px;
   letter-spacing: 0.04em;
   color: var(--accent);
   display: inline-flex;
@@ -173,7 +173,7 @@ section { position: relative; }
 }
 .sec-head p {
   font-family: var(--font-head);
-  font-size: 14.5px;
+  font-size: 16.5px;
   color: var(--muted);
   max-width: 540px;
   line-height: 1.65;
@@ -351,8 +351,38 @@ section { position: relative; }
 .diff-desc,
 .ind-desc,
 .case-body p,
-.engage-desc,
+.eng-desc,
 .proc-desc {
   font-family: var(--font-body) !important;
   letter-spacing: 0 !important;
+}
+
+/* ============================================================
+   TYPOGRAPHY AUDIT — size & line-height boosts
+   ============================================================ */
+.svc-desc,
+.case-body p,
+.proc-desc,
+.about-copy p,
+.about-lead p,
+.diff-desc,
+.why-stat p,
+.faq-a p,
+.contact-sub,
+.eng-desc,
+.testi-quote {
+  font-size: 15.5px !important;
+  line-height: 1.75 !important;
+}
+
+/* Small mono labels/nav/footer nudged up */
+.nav-link-item,
+.nav-cta,
+.mobile-link,
+.nav-email,
+.foot-tagline,
+.contact-direct,
+.tech-cat-title,
+.eng-more {
+  font-size: 15px !important;
 }
