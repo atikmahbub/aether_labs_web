@@ -65,7 +65,7 @@ export default function WhyUs() {
           letter-spacing: -0.03em; line-height: 1.05; margin-bottom: 16px; text-transform: uppercase;
         }
         .stat-big span { color: var(--accent); }
-        .why-stat p { font-family: var(--font-mono); font-size: 14px; color: var(--muted); line-height: 1.65; }
+        .why-stat p { font-family: var(--font-body); font-size: 16px; color: rgba(255,255,255,0.76); line-height: 1.7; }
         .why-diffs {
           display: grid; grid-template-columns: repeat(3,1fr);
           gap: 1px; background: var(--border); border: 1px solid var(--border);
@@ -73,7 +73,7 @@ export default function WhyUs() {
         .diff-item { background: var(--card-2); padding: 32px 30px; transition: background 0.3s; }
         .diff-m { font-family: var(--font-mono); font-size: 12px; color: var(--accent); display: block; margin-bottom: 14px; letter-spacing: 0.04em; }
         .diff-title { font-size: 17px; font-weight: 800; margin-bottom: 8px; text-transform: uppercase; letter-spacing: -0.01em; color: var(--white); }
-        .diff-desc { font-family: var(--font-head); font-size: 14px; color: var(--muted); line-height: 1.65; }
+        .diff-desc { font-family: var(--font-body); font-size: 16px; color: rgba(255,255,255,0.76); line-height: 1.7; }
 
         @media (max-width: 980px) {
           .why-stats { grid-template-columns: repeat(2,1fr); }

@@ -47,7 +47,7 @@ function Pill({ label }: { label: string }) {
         const el = e.currentTarget as HTMLElement;
         el.style.borderColor = "var(--accent)";
         el.style.color = "var(--white)";
-        el.style.background = "rgba(255,90,31,0.06)";
+        el.style.background = "rgba(255,92,26,0.06)";
       }}
       onMouseLeave={(e) => {
         const el = e.currentTarget as HTMLElement;
@@ -63,7 +63,7 @@ function Pill({ label }: { label: string }) {
         .tech-pill {
           flex-shrink: 0; display: flex; align-items: center; gap: 11px;
           padding: 13px 22px; background: var(--card); border: 1px solid var(--border);
-          font-family: var(--font-mono); font-size: 14px; color: var(--muted);
+          font-family: var(--font-mono); font-size: 13px; color: var(--muted);
           transition: border-color 0.3s, color 0.3s, background 0.3s;
           cursor: default; white-space: nowrap;
         }

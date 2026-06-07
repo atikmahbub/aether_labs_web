@@ -96,11 +96,12 @@ export default function Navbar() {
         }
         .nav-inner {
           max-width: var(--maxw); margin: 0 auto;
-          padding: 22px 32px;
+          padding: 0 32px;
+          min-height: 72px;
           display: flex; align-items: center; justify-content: space-between; gap: 24px;
-          transition: padding 0.35s;
+          transition: min-height 0.35s;
         }
-        .site-nav.scrolled .nav-inner { padding: 15px 32px; }
+        .site-nav.scrolled .nav-inner { min-height: 56px; }
         .brand { display: flex; align-items: center; gap: 11px; }
         .brand-mark { width: 26px; height: 26px; flex-shrink: 0; }
         .brand-name {
@@ -109,7 +110,7 @@ export default function Navbar() {
         }
         .nav-links { display: flex; align-items: center; gap: 30px; }
         .nav-link-item {
-          font-family: var(--font-mono); font-size: 14px; color: var(--muted);
+          font-family: var(--font-mono); font-size: 15px; color: var(--muted);
           transition: color 0.2s;
         }
         .nav-link-item:hover { color: var(--white); }
@@ -120,7 +121,7 @@ export default function Navbar() {
         }
         .nav-email:hover { color: var(--white); }
         .nav-cta {
-          font-family: var(--font-mono); font-size: 14px; color: var(--white);
+          font-family: var(--font-mono); font-size: 15px; color: var(--white);
           position: relative; padding-bottom: 3px;
           display: inline-flex; align-items: center; gap: 8px;
         }
@@ -147,7 +148,7 @@ export default function Navbar() {
         .mobile-link {
           display: block; padding: 13px 0;
           border-bottom: 1px solid var(--border);
-          font-family: var(--font-mono); font-size: 14px; color: var(--muted);
+          font-family: var(--font-mono); font-size: 15px; color: var(--muted);
           transition: color 0.2s;
         }
         .mobile-link:hover { color: var(--white); }
@@ -158,8 +159,8 @@ export default function Navbar() {
           .nav-cta { display: none !important; }
         }
         @media (max-width: 480px) {
-          .nav-inner { padding: 16px 20px !important; }
-          .site-nav.scrolled .nav-inner { padding: 12px 20px !important; }
+          .nav-inner { padding: 0 20px !important; min-height: 60px !important; }
+          .site-nav.scrolled .nav-inner { min-height: 52px !important; }
           .mobile-menu { padding: 8px 20px 18px; }
         }
       `}</style>

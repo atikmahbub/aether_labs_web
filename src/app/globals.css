@@ -20,20 +20,10 @@
   /* Layout */
   --maxw: 1200px;
 
-  /* Fonts — overridden at runtime by Next.js font CSS variables on <html> */
+  /* Fonts */
   --font-head: "Barlow Condensed", sans-serif;
   --font-body: "IBM Plex Sans", system-ui, sans-serif;
   --font-mono: "Space Mono", monospace;
-
-  /* ── Type Scale ──────────────────────────────────────────
-     hero-h1         : clamp(44px, 6vw, 88px)   — hero only
-     stmt-big        : clamp(40px, 6.6vw, 98px) — pull quote only
-     sec-head h2     : clamp(30px, 3.5vw, 42px) — every section heading
-     card-title-lg   : 20–22px                  — Services, Work cards
-     card-title-sm   : 15–18px                  — Process, WhyUs, Eng, Ind
-     body-para       : 14–14.5px (font-head)    — card descriptions
-     mono-ui         : 11–13px (font-mono)       — labels, tags, captions
-  ──────────────────────────────────────────────────────── */
 }
 
 /* ============================================================
@@ -68,11 +58,18 @@ body {
 }
 body.loaded { opacity: 1; }
 
+/* CSS safety fallback so content never stays hidden if JS fails */
+@keyframes bodyReveal {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+body { animation: bodyReveal 0.4s ease 1.2s both; }
+
 a { color: inherit; text-decoration: none; }
 img, svg { display: block; }
 ::selection { background: var(--accent); color: #0b0a08; }
 
-/* Heading defaults — always Archivo, always var(--white) */
+/* Heading defaults — Barlow Condensed */
 h1, h2, h3, h4 {
   font-family: var(--font-head);
   color: var(--white);
@@ -127,20 +124,21 @@ section { position: relative; }
 
 /* ============================================================
    SECTION LABEL  [ 01 Label ]
-   font-mono · 13px · accent color · bracket pseudo-elements
+   Space Mono · 11.5px · 0.15em · uppercase · accent
    ============================================================ */
 .label {
   font-family: var(--font-mono);
-  font-size: 14px;
-  letter-spacing: 0.04em;
+  font-size: 11.5px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
   color: var(--accent);
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 7px;
 }
 .label::before { content: "["; }
 .label::after  { content: "]"; }
-.label .n      { color: var(--dim); }
+.label .n      { color: rgba(255, 92, 26, 0.55); }
 
 /* ============================================================
    DIVIDER
@@ -154,9 +152,9 @@ section { position: relative; }
 }
 
 /* ============================================================
-   SECTION HEADING  (the canonical heading block for all sections)
-   h2: clamp(30px, 3.5vw, 42px) — uppercase, 800 weight
-   p:  14.5px font-head, var(--muted)
+   SECTION HEADING
+   h2: clamp(30px, 3.5vw, 42px) — Barlow Condensed 800 uppercase
+   p:  IBM Plex Sans 17px / 1.62 / rgba(255,255,255,0.78)
    ============================================================ */
 .sec-head {
   max-width: 760px;
@@ -172,11 +170,11 @@ section { position: relative; }
   color: var(--white);
 }
 .sec-head p {
-  font-family: var(--font-head);
-  font-size: 16.5px;
-  color: var(--muted);
+  font-family: var(--font-body);
+  font-size: 17px;
+  color: rgba(255, 255, 255, 0.78);
   max-width: 540px;
-  line-height: 1.65;
+  line-height: 1.62;
 }
 
 /* ============================================================
@@ -185,7 +183,7 @@ section { position: relative; }
 .btn {
   font-family: var(--font-mono);
   font-weight: 700;
-  font-size: 14px;
+  font-size: 14.5px;
   border-radius: 100px;
   padding: 15px 28px;
   display: inline-flex;
@@ -333,56 +331,157 @@ section { position: relative; }
 }
 
 /* ============================================================
-   BRAND AUDIT — prose font overrides
-   All body/description text uses Inter (--font-body), not Space Mono or Barlow.
-   !important ensures these win over component-scoped <style> tags.
+   BRAND AUDIT — font-family overrides
+   All body prose, descriptions, form fields → IBM Plex Sans
+   All headings → Barlow Condensed
+   Labels/mono accents → Space Mono
+   !important beats component-scoped <style> tags
    ============================================================ */
-.sec-head p,
-.hero-sub,
-.svc-desc,
-.stmt-cols p,
-.foot-tagline,
-.testi-quote,
-.faq-a p,
-.contact-sub,
-.about-copy p,
-.about-lead p,
-.why-stat p,
-.diff-desc,
-.ind-desc,
-.case-body p,
-.eng-desc,
-.proc-desc {
+
+/* IBM Plex Sans for all running text */
+p, li, blockquote, address,
+.svc-desc, .case-body p, .diff-desc, .highlight-desc, .proc-desc,
+.ind-desc, .engage-desc, .eng-desc, .about-copy p, .about-lead p,
+.testi-quote, .faq-a p, .contact-sub, .contact-direct,
+.foot-tagline, .foot-link, .stmt-cols p, .hero-sub,
+.sec-head p, .why-stat p,
+.cap-tag, .trust-badge {
   font-family: var(--font-body) !important;
   letter-spacing: 0 !important;
 }
 
+/* Form fields — IBM Plex Sans (beats component-level mono) */
+.field-input, input.field-input, select.field-input, textarea.field-input {
+  font-family: var(--font-body) !important;
+}
+
+/* Headings stay Barlow Condensed */
+h1, h2, h3, h4,
+.hero-h1, .sec-head h2, .svc-title, .case-title,
+.diff-title, .highlight-title, .proc-title, .about-title,
+.testi-h2, .contact-h2, .brand-name { font-family: var(--font-head) !important; }
+
 /* ============================================================
-   TYPOGRAPHY AUDIT — size & line-height boosts
+   CONSISTENT TYPE SCALE — exact values from design
+   Lead/subtitle ........... 17px / 1.62 / rgba(255,255,255,0.78)
+   Body paragraphs ......... 16px / 1.7  / rgba(255,255,255,0.76)
+   Testimonial quotes ...... 17px / 1.6  / rgba(255,255,255,0.86)
+   Nav / CTA ............... 15px
+   Buttons ................. 14.5px
+   Tags / pills / mono UI .. 13px
+   Footer links ............ 14.5px
+   Eyebrow label ........... 11.5px
+   Hero dashboard card p ... 12.5px
+   Hero card-badge ......... 10.5px
+   Typewriter container .... 13.5px
    ============================================================ */
+
+/* Lead text / section subtitles */
+.sec-head p,
+.hero-sub,
+.contact-sub,
+.about-lead p {
+  font-size: 17px !important;
+  line-height: 1.62 !important;
+  color: rgba(255, 255, 255, 0.78) !important;
+}
+
+/* Standard body paragraphs */
 .svc-desc,
 .case-body p,
 .proc-desc,
-.about-copy p,
-.about-lead p,
-.diff-desc,
-.why-stat p,
-.faq-a p,
-.contact-sub,
+.ind-desc,
+.engage-desc,
 .eng-desc,
-.testi-quote {
-  font-size: 15.5px !important;
-  line-height: 1.75 !important;
+.about-copy p,
+.diff-desc,
+.highlight-desc,
+.why-stat p {
+  font-size: 16px !important;
+  line-height: 1.7 !important;
+  color: rgba(255, 255, 255, 0.76) !important;
 }
 
-/* Small mono labels/nav/footer nudged up */
+/* FAQ answers */
+.faq-a p {
+  font-size: 16px !important;
+  line-height: 1.7 !important;
+  color: rgba(255, 255, 255, 0.74) !important;
+}
+
+/* Statement columns */
+.stmt-cols p {
+  font-size: 16px !important;
+  line-height: 1.76 !important;
+}
+
+/* Testimonial pull-quotes — slightly brighter */
+.testi-quote {
+  font-size: 17px !important;
+  line-height: 1.6 !important;
+  color: rgba(255, 255, 255, 0.86) !important;
+}
+
+/* Nav + interactive mono text */
 .nav-link-item,
 .nav-cta,
-.mobile-link,
-.nav-email,
-.foot-tagline,
-.contact-direct,
-.tech-cat-title,
-.eng-more {
+.mobile-link {
   font-size: 15px !important;
+}
+
+/* Footer */
+.foot-link,
+.foot-col-head,
+.foot-tagline {
+  font-size: 14.5px !important;
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+.foot-tagline { line-height: 1.6 !important; }
+
+/* Mono tags / pills — unified 13px */
+.case-tags span,
+.cap-tag,
+.trust-badge,
+.tech-pill,
+.case-sector,
+.testi-role {
+  font-size: 13px !important;
+}
+
+/* Hero dashboard (decorative, compact) */
+.flow-card p {
+  font-size: 12.5px !important;
+  color: rgba(255, 255, 255, 0.72) !important;
+}
+.card-badge {
+  font-size: 10.5px !important;
+  color: rgba(255, 255, 255, 0.55) !important;
+}
+.typewriter-container {
+  font-size: 13.5px !important;
+}
+
+/* Mobile type scale — matches design exactly */
+@media (max-width: 760px) {
+  .sec-head p,
+  .hero-sub,
+  .contact-sub,
+  .about-lead p {
+    font-size: 16px !important;
+  }
+  .svc-desc,
+  .case-body p,
+  .proc-desc,
+  .ind-desc,
+  .engage-desc,
+  .eng-desc,
+  .about-copy p,
+  .diff-desc,
+  .highlight-desc,
+  .why-stat p,
+  .faq-a p,
+  .stmt-cols p {
+    font-size: 15.5px !important;
+  }
+  .testi-quote { font-size: 16px !important; }
 }

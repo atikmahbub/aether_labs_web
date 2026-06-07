@@ -26,6 +26,10 @@ export const metadata: Metadata = {
   title: "Aether Labs — We Build What's Next",
   description:
     "Premium software engineering studio. We build web apps, mobile apps, AI agent systems and SaaS platforms. End-to-end, from architecture to launch.",
+  icons: {
+    icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
+  },
   openGraph: {
     type: "website",
     title: "Aether Labs — We Build What's Next",

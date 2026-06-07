@@ -46,12 +46,16 @@ export default function Engagement() {
               key={m.title}
               className="reveal eng-card"
               onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.transform = "translateY(-4px)";
-                (e.currentTarget as HTMLElement).style.borderColor = "var(--border-2)";
+                const el = e.currentTarget as HTMLElement;
+                el.style.transform = "translateY(-4px)";
+                el.style.borderColor = "rgba(255,92,26,0.15)";
+                el.style.boxShadow = "0 12px 30px -10px rgba(0,0,0,0.5), 0 0 24px -10px rgba(255,92,26,0.15)";
               }}
               onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.transform = "";
-                (e.currentTarget as HTMLElement).style.borderColor = "var(--border)";
+                const el = e.currentTarget as HTMLElement;
+                el.style.transform = "";
+                el.style.borderColor = "var(--border)";
+                el.style.boxShadow = "";
               }}
             >
               <div className="eng-ic">{m.icon}</div>
@@ -66,16 +70,18 @@ export default function Engagement() {
       <style>{`
         .eng-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
         .eng-card {
-          padding: 36px 32px; background: var(--card); border: 1px solid var(--border);
-          transition: transform 0.3s, border-color 0.3s; display: flex; flex-direction: column;
+          padding: 28px; background: var(--card); border: 1px solid var(--border);
+          border-radius: 12px;
+          transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+          display: flex; flex-direction: column;
         }
         .eng-ic {
           width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
-          background: rgba(255,90,31,0.08); border: 1px solid rgba(255,90,31,0.22);
-          margin-bottom: 24px; color: var(--accent);
+          background: rgba(255,92,26,0.08); border: 1px solid rgba(255,92,26,0.22);
+          border-radius: 8px; margin-bottom: 24px; color: var(--accent);
         }
         .eng-title { font-size: 18px; font-weight: 800; margin-bottom: 12px; text-transform: uppercase; letter-spacing: -0.01em; color: var(--white); }
-        .eng-desc { font-family: var(--font-body); font-size: 14px; color: var(--muted); line-height: 1.65; flex: 1; margin-bottom: 24px; }
+        .eng-desc { font-family: var(--font-body); font-size: 16px; color: rgba(255,255,255,0.76); line-height: 1.7; flex: 1; margin-bottom: 24px; }
         .eng-more {
           font-family: var(--font-mono); font-size: 13px; color: var(--accent);
           display: inline-flex; align-items: center; gap: 8px; transition: gap 0.25s;

@@ -53,7 +53,7 @@ export default function Contact() {
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     className="field-input"
-                    onFocus={(e) => { e.target.style.borderColor = "var(--accent)"; e.target.style.boxShadow = "0 0 0 3px rgba(255,90,31,0.12)"; }}
+                    onFocus={(e) => { e.target.style.borderColor = "var(--accent)"; e.target.style.boxShadow = "0 0 0 3px rgba(255,92,26,0.12)"; }}
                     onBlur={(e) => { e.target.style.borderColor = "var(--border)"; e.target.style.boxShadow = ""; }}
                   />
                 </div>
@@ -64,7 +64,7 @@ export default function Contact() {
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     className="field-input"
-                    onFocus={(e) => { e.target.style.borderColor = "var(--accent)"; e.target.style.boxShadow = "0 0 0 3px rgba(255,90,31,0.12)"; }}
+                    onFocus={(e) => { e.target.style.borderColor = "var(--accent)"; e.target.style.boxShadow = "0 0 0 3px rgba(255,92,26,0.12)"; }}
                     onBlur={(e) => { e.target.style.borderColor = "var(--border)"; e.target.style.boxShadow = ""; }}
                   />
                 </div>
@@ -91,7 +91,7 @@ export default function Contact() {
                   value={formData.msg}
                   onChange={(e) => setFormData({ ...formData, msg: e.target.value })}
                   className="field-input field-textarea"
-                  onFocus={(e) => { e.target.style.borderColor = "var(--accent)"; e.target.style.boxShadow = "0 0 0 3px rgba(255,90,31,0.12)"; }}
+                  onFocus={(e) => { e.target.style.borderColor = "var(--accent)"; e.target.style.boxShadow = "0 0 0 3px rgba(255,92,26,0.12)"; }}
                   onBlur={(e) => { e.target.style.borderColor = "var(--border)"; e.target.style.boxShadow = ""; }}
                 />
               </div>
@@ -122,7 +122,7 @@ export default function Contact() {
         .contact-glow { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
         .glow-orb {
           position: absolute; width: 720px; height: 720px; border-radius: 50%;
-          background: radial-gradient(circle, rgba(224,90,31,0.22), transparent 60%);
+          background: radial-gradient(circle, rgba(255,92,26,0.18), transparent 60%);
           bottom: -360px; right: -160px; filter: blur(30px);
         }
         .contact-grid {
@@ -133,8 +133,8 @@ export default function Contact() {
           font-size: clamp(30px, 3.5vw, 42px); font-weight: 800;
           text-transform: uppercase; line-height: 1.05; letter-spacing: -0.02em; margin: 16px 0 16px;
         }
-        .contact-sub { font-family: var(--font-mono); font-size: 15px; color: var(--muted); max-width: 380px; line-height: 1.7; }
-        .contact-direct { margin-top: 34px; font-family: var(--font-mono); font-size: 14px; color: var(--muted); }
+        .contact-sub { font-family: var(--font-body); font-size: 17px; color: rgba(255,255,255,0.78); max-width: 380px; line-height: 1.62; }
+        .contact-direct { margin-top: 34px; font-family: var(--font-body); font-size: 15px; color: var(--muted); }
         .contact-form { display: flex; flex-direction: column; gap: 16px; }
         .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
         .field-label {
@@ -143,8 +143,8 @@ export default function Contact() {
         }
         .field-input {
           width: 100%; background: var(--bg); border: 1px solid var(--border);
-          padding: 14px 16px; color: var(--white);
-          font-family: var(--font-mono); font-size: 14.5px;
+          border-radius: 6px; padding: 14px 16px; color: var(--white);
+          font-family: var(--font-body); font-size: 15px;
           transition: border-color 0.25s, box-shadow 0.25s; outline: none;
         }
         .field-input::placeholder { color: var(--dim); }
@@ -158,11 +158,11 @@ export default function Contact() {
           font-family: var(--font-mono); font-weight: 700; font-size: 14px;
           border-radius: 100px; padding: 15px 28px; border: 1px solid rgba(255, 255, 255, 0.1); cursor: pointer;
           background: var(--accent); color: #050505;
-          box-shadow: 0 8px 24px -8px rgba(224, 90, 31, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+          box-shadow: 0 8px 24px -8px rgba(255, 92, 26, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.25);
           width: 100%; display: flex; align-items: center; justify-content: center; gap: 9px;
           transition: transform 0.25s, box-shadow 0.25s, background 0.25s;
         }
-        .submit-btn:hover { background: #e06a35; box-shadow: 0 12px 32px -8px rgba(224, 90, 31, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.3); }
+        .submit-btn:hover { background: var(--accent-deep); box-shadow: 0 12px 32px -8px rgba(255, 92, 26, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.3); }
         .submit-btn:disabled { opacity: 0.7; }
 
         @media (max-width: 980px) {

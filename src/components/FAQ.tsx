@@ -62,11 +62,11 @@ export default function FAQ() {
         .faq-item.open .faq-pl::after { transform: scaleY(0); }
         .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1); }
         .faq-item.open .faq-a { max-height: 320px; }
-        .faq-a p { padding: 0 40px 26px 0; font-family: var(--font-mono); font-size: 14px; line-height: 1.7; color: var(--muted); }
+        .faq-a p { padding: 0 40px 26px 0; font-family: var(--font-body); font-size: 16px; line-height: 1.7; color: rgba(255,255,255,0.74); }
 
         @media (max-width: 760px) {
           .faq-q { font-size: 15px; padding: 20px 0; }
-          .faq-a p { padding-right: 0; font-size: 13.5px; }
+          .faq-a p { padding-right: 0; font-size: 15.5px; }
         }
       `}</style>
     </section>

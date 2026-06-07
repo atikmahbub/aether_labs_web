@@ -41,18 +41,18 @@ export default function About() {
           text-transform: uppercase; line-height: 1.05; letter-spacing: -0.02em; margin-top: 16px;
         }
         .about-copy { display: flex; flex-direction: column; gap: 20px; }
-        .about-copy p { font-family: var(--font-mono); font-size: 15px; line-height: 1.8; color: var(--muted); }
+        .about-copy p { font-family: var(--font-body); font-size: 16px; line-height: 1.7; color: rgba(255,255,255,0.76); }
         .about-copy strong { color: var(--white); font-weight: 700; }
 
         .highlights-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
         .highlight-card {
-          padding: 30px 26px; background: var(--card); border: 1px solid var(--border);
-          border-radius: 10px;
-          transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+          padding: 28px; background: var(--card); border: 1px solid var(--border);
+          border-radius: 12px;
+          transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
         }
         .highlight-card:hover {
-          transform: translateY(-3px);
-          border-color: var(--border-2);
+          transform: translateY(-4px);
+          border-color: rgba(255,92,26,0.15);
           box-shadow: 0 8px 24px -10px rgba(0,0,0,0.5), 0 0 18px -8px var(--accent-glow);
         }
         .highlight-icon { font-size: 24px; margin-bottom: 16px; display: block; }
@@ -61,7 +61,7 @@ export default function About() {
           color: var(--white); text-transform: uppercase; letter-spacing: -0.01em;
           margin-bottom: 10px;
         }
-        .highlight-desc { font-family: var(--font-mono); font-size: 12.5px; color: var(--dim); line-height: 1.6; }
+        .highlight-desc { font-family: var(--font-body); font-size: 16px; color: rgba(255,255,255,0.76); line-height: 1.7; }
 
         @media (max-width: 980px) {
           .about-lead { grid-template-columns: 1fr; gap: 26px; margin-bottom: 48px; }

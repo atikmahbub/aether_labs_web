@@ -47,11 +47,11 @@ export default function Industries() {
         .ind-icon {
           width: 42px; height: 42px; flex-shrink: 0;
           display: flex; align-items: center; justify-content: center;
-          background: rgba(255,90,31,0.08); border: 1px solid rgba(255,90,31,0.22);
+          background: rgba(255,92,26,0.08); border: 1px solid rgba(255,92,26,0.22);
           color: var(--accent);
         }
         .ind-title { font-size: 15px; font-weight: 800; margin-bottom: 8px; text-transform: uppercase; letter-spacing: -0.01em; color: var(--white); }
-        .ind-desc { font-family: var(--font-mono); font-size: 13px; color: var(--muted); line-height: 1.6; }
+        .ind-desc { font-family: var(--font-body); font-size: 16px; color: rgba(255,255,255,0.76); line-height: 1.7; }
         @media (max-width: 980px) { .ind-grid { grid-template-columns: repeat(2, 1fr); } }
         @media (max-width: 600px) {
           .ind-grid { grid-template-columns: 1fr; }

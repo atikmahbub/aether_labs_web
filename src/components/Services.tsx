@@ -86,12 +86,12 @@ export default function Services() {
         }
         .svc-card {
           position: relative;
-          background: rgba(11, 11, 10, 0.4);
+          background: var(--card);
           border: 1px solid var(--border);
           border-radius: 12px;
-          padding: 32px;
+          padding: 28px;
           overflow: hidden;
-          transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+          transition: all 0.2s ease;
           display: flex;
           flex-direction: column;
         }
@@ -105,9 +105,8 @@ export default function Services() {
           z-index: 1;
         }
         .svc-card:hover {
-          border-color: var(--border-2);
+          border-color: rgba(255, 92, 26, 0.15);
           transform: translateY(-4px);
-          background: rgba(11, 11, 10, 0.75);
           box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.6),
                       0 0 24px -10px var(--accent-glow);
         }
@@ -136,7 +135,7 @@ export default function Services() {
         }
         .svc-title {
           font-size: 22px;
-          font-weight: 700;
+          font-weight: 800;
           text-transform: uppercase;
           letter-spacing: -0.01em;
           margin-bottom: 14px;
@@ -145,10 +144,10 @@ export default function Services() {
           z-index: 2;
         }
         .svc-desc {
-          font-family: var(--font-head);
-          font-size: 14px;
-          color: var(--muted);
-          line-height: 1.6;
+          font-family: var(--font-body);
+          font-size: 16px;
+          color: rgba(255,255,255,0.76);
+          line-height: 1.7;
           margin-bottom: 24px;
           flex: 1;
           position: relative;
@@ -164,8 +163,8 @@ export default function Services() {
           z-index: 2;
         }
         .cap-tag {
-          font-family: var(--font-mono);
-          font-size: 11.5px;
+          font-family: var(--font-body);
+          font-size: 13px;
           color: var(--muted);
           display: flex;
           align-items: center;

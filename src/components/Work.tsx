@@ -118,17 +118,16 @@ export default function Work() {
         .case-card {
           border: 1px solid var(--border);
           overflow: hidden;
-          background: rgba(11, 11, 10, 0.4);
+          background: var(--card);
           display: flex;
           flex-direction: column;
           border-radius: 12px;
-          transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+          transition: all 0.2s ease;
         }
         
         .case-card:hover {
-          transform: translateY(-6px);
-          border-color: var(--border-2);
-          background: rgba(11, 11, 10, 0.75);
+          transform: translateY(-4px);
+          border-color: rgba(255, 92, 26, 0.15);
           box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7),
                       0 0 30px -15px var(--accent-glow);
         }
@@ -151,7 +150,7 @@ export default function Work() {
           content: "";
           position: absolute;
           inset: 0;
-          background-image: radial-gradient(circle, rgba(240, 106, 37, 0.03) 1px, transparent 1px);
+          background-image: radial-gradient(circle, rgba(255, 92, 26, 0.03) 1px, transparent 1px);
           background-size: 16px 16px;
           pointer-events: none;
           z-index: 0;
@@ -197,7 +196,7 @@ export default function Work() {
           50% { transform: translateY(-4px); }
         }
         .toast-dot {
-          width: 6px; height: 6px; background: #10b981; border-radius: 50%;
+          width: 6px; height: 6px; background: var(--accent); border-radius: 50%;
         }
 
         /* AI Visual */
@@ -222,8 +221,8 @@ export default function Work() {
           align-self: flex-start;
         }
         .vis-chat-bubble.agent {
-          background: rgba(224, 90, 31, 0.08);
-          border: 1px solid var(--accent-deep);
+          background: rgba(255, 92, 26, 0.08);
+          border: 1px solid rgba(255, 92, 26, 0.3);
           color: var(--white);
           align-self: flex-end;
           display: flex;
@@ -308,7 +307,7 @@ export default function Work() {
         
         .case-body h3 {
           font-size: 22px;
-          font-weight: 700;
+          font-weight: 800;
           margin: 12px 0 10px;
           text-transform: uppercase;
           letter-spacing: -0.01em;
@@ -316,10 +315,10 @@ export default function Work() {
         }
         
         .case-body p {
-          font-family: var(--font-head);
-          font-size: 14px;
-          color: var(--muted);
-          line-height: 1.6;
+          font-family: var(--font-body);
+          font-size: 16px;
+          color: rgba(255,255,255,0.76);
+          line-height: 1.7;
           flex: 1;
         }
         

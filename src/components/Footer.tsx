@@ -62,14 +62,14 @@ export default function Footer() {
           gap: 40px; align-items: start; margin-bottom: 48px;
         }
         .foot-brand-link { display: flex; align-items: center; gap: 11px; margin-bottom: 18px; }
-        .foot-tagline { font-family: var(--font-mono); font-size: 14px; color: var(--muted); max-width: 280px; line-height: 1.6; }
+        .foot-tagline { font-family: var(--font-body); font-size: 15px; color: rgba(255,255,255,0.7); max-width: 280px; line-height: 1.65; }
         .foot-col-head {
           font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.04em;
           color: var(--dim); margin-bottom: 18px; font-weight: 400;
         }
         .foot-link {
-          display: block; font-family: var(--font-mono); font-size: 14px;
-          color: var(--muted); margin-bottom: 12px; transition: color 0.2s;
+          display: block; font-family: var(--font-body); font-size: 14.5px;
+          color: rgba(255,255,255,0.7); margin-bottom: 12px; transition: color 0.2s;
         }
         .foot-link:hover { color: var(--accent); }
         .socials { display: flex; gap: 12px; }

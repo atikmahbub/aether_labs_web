@@ -253,17 +253,17 @@ export default function Hero() {
           background-clip: text;
         }
         .hero-sub {
-          font-family: var(--font-head);
-          font-size: clamp(16px, 1.8vw, 20px);
+          font-family: var(--font-body);
+          font-size: 17px;
           font-weight: 500;
-          color: var(--muted);
+          color: rgba(255, 255, 255, 0.78);
           max-width: 520px;
           margin-bottom: 24px;
-          line-height: 1.5;
+          line-height: 1.62;
         }
         .typewriter-container {
           font-family: var(--font-mono);
-          font-size: 13px;
+          font-size: 13.5px;
           background: rgba(5, 5, 5, 0.92);
           border: 1px solid rgba(255, 92, 26, 0.22);
           padding: 11px 20px;
@@ -353,8 +353,8 @@ export default function Hero() {
         }
         .card-badge {
           font-family: var(--font-mono);
-          font-size: 10px;
-          color: var(--dim);
+          font-size: 10.5px;
+          color: rgba(255, 255, 255, 0.55);
           text-transform: uppercase;
           letter-spacing: 0.05em;
           display: block;
@@ -372,8 +372,8 @@ export default function Hero() {
         }
         .flow-card p {
           font-family: var(--font-mono);
-          font-size: 12px;
-          color: var(--muted);
+          font-size: 12.5px;
+          color: rgba(255, 255, 255, 0.72);
         }
         .flow-indicator {
           position: absolute;
@@ -418,8 +418,8 @@ export default function Hero() {
           padding-top: 32px;
         }
         .trust-badge {
-          font-family: var(--font-mono); font-size: 13px;
-          color: var(--muted); padding-left: 24px;
+          font-family: var(--font-body); font-size: 13px;
+          color: rgba(255,255,255,0.74); padding-left: 24px;
           border-left: 1px solid rgba(255, 255, 255, 0.15);
         }
         .trust-badge b { color: var(--white); font-weight: 700; }
@@ -471,7 +471,7 @@ export default function Hero() {
           }
         }
         @media (max-width: 760px) {
-          .hero { padding: 90px 0 40px; }
+          .hero { padding: 90px 0 40px; margin: 0; border-radius: 0; }
           .hero-trust { margin-top: 30px; padding-top: 16px; }
           .trust-badge { padding-left: 14px; }
           .typewriter-container {

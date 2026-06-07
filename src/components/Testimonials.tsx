@@ -50,12 +50,16 @@ export default function Testimonials() {
               key={t.name}
               className="reveal testi-card"
               onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.transform = "translateY(-3px)";
-                (e.currentTarget as HTMLElement).style.borderColor = "var(--border-2)";
+                const el = e.currentTarget as HTMLElement;
+                el.style.transform = "translateY(-4px)";
+                el.style.borderColor = "rgba(255,92,26,0.15)";
+                el.style.boxShadow = "0 12px 30px -10px rgba(0,0,0,0.5), 0 0 24px -10px rgba(255,92,26,0.15)";
               }}
               onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.transform = "";
-                (e.currentTarget as HTMLElement).style.borderColor = "var(--border)";
+                const el = e.currentTarget as HTMLElement;
+                el.style.transform = "";
+                el.style.borderColor = "var(--border)";
+                el.style.boxShadow = "";
               }}
             >
               <div className="testi-stars" aria-label="5 out of 5 stars">
@@ -92,11 +96,12 @@ export default function Testimonials() {
         .testi-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
         .testi-card {
           position: relative; display: flex; flex-direction: column;
-          padding: 34px 30px 28px; background: var(--card); border: 1px solid var(--border);
-          transition: transform 0.3s, border-color 0.3s;
+          padding: 28px; background: var(--card); border: 1px solid var(--border);
+          border-radius: 12px;
+          transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
         }
         .testi-stars { display: flex; gap: 3px; margin-bottom: 18px; color: var(--accent); }
-        .testi-quote { font-family: var(--font-mono); font-size: 14px; line-height: 1.7; color: var(--white); flex: 1; }
+        .testi-quote { font-family: var(--font-body); font-size: 17px; line-height: 1.6; color: rgba(255,255,255,0.86); flex: 1; }
         .testi-who {
           display: flex; align-items: center; gap: 14px;
           margin-top: 24px; padding-top: 22px; border-top: 1px solid var(--border);
