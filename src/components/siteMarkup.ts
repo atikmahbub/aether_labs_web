@@ -477,8 +477,8 @@ export const siteMarkup = String.raw`
         .type-text {
           color: var(--white); font-weight: 600;
           display: inline-block;
-          flex: 1;
-          min-width: 0;
+          flex: none;
+          width: 17ch;
           overflow: hidden;
           text-overflow: clip;
           white-space: nowrap;
@@ -4845,10 +4845,10 @@ export const siteMarkup = String.raw`
   .art-ring { position:absolute; width:30%; height:30%; top:13%; right:9%; border:2px solid rgba(29,78,216,0.18); border-radius:50%; animation:artFloat 14s ease-in-out infinite; }
   .art-dotgrid { position:absolute; width:118px; height:118px; bottom:9%; left:5%; background-image:radial-gradient(rgba(29,78,216,0.28) 1.6px, transparent 1.6px); background-size:16px 16px; transform:rotate(-12deg); opacity:.7; }
   .art-stack { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:52%; height:60%; }
-  .art-panel { position:absolute; inset:0; border-radius:28px; border:1px solid rgba(255,255,255,0.5); }
+  .art-panel { position:absolute; inset:0; border-radius:28px; border:1px solid rgba(255,255,255,0.5); will-change:transform; transform-style:preserve-3d; -webkit-backface-visibility:hidden; backface-visibility:hidden; }
   .art-panel.p1 { background:linear-gradient(150deg,#2563EB,#1E3A8A); box-shadow:0 32px 64px -22px rgba(29,78,216,0.6); transform:rotate(-9deg) translate(-6%,4%); animation:artTilt1 9s ease-in-out infinite; }
-  .art-panel.p2 { background:linear-gradient(150deg, rgba(96,165,250,0.88), rgba(37,99,235,0.7)); -webkit-backdrop-filter:blur(4px); backdrop-filter:blur(4px); transform:rotate(7deg) translate(8%,-3%); animation:artTilt2 11s ease-in-out infinite; }
-  .art-panel.p3 { background:linear-gradient(150deg, rgba(255,255,255,0.9), rgba(226,236,250,0.62)); -webkit-backdrop-filter:blur(2px); backdrop-filter:blur(2px); transform:rotate(-2deg); box-shadow:0 26px 54px -24px rgba(15,23,42,0.4); animation:artTilt3 10s ease-in-out infinite; }
+  .art-panel.p2 { background:linear-gradient(150deg, rgba(112,178,252,0.94), rgba(37,99,235,0.86)); transform:rotate(7deg) translate(8%,-3%); animation:artTilt2 11s ease-in-out infinite; }
+  .art-panel.p3 { background:linear-gradient(150deg, rgba(255,255,255,0.97), rgba(226,236,250,0.9)); transform:rotate(-2deg); box-shadow:0 26px 54px -24px rgba(15,23,42,0.4); animation:artTilt3 10s ease-in-out infinite; }
   /* Content on the front glass panel */
   .art-panel.p3 { display:flex; flex-direction:column; padding:22px 22px 20px; gap:9px; z-index:4; }
   .panel-top { display:flex; align-items:center; justify-content:space-between; }
@@ -4865,12 +4865,12 @@ export const siteMarkup = String.raw`
   .panel-bars i:nth-child(3){ animation-delay:.3s; opacity:.5; }
   @keyframes panelGrow { from{ transform:scaleX(0);} to{ transform:scaleX(1);} }
   /* Floating capability chips around the panel */
-  .art-chip { position:absolute; z-index:6; display:inline-flex; align-items:center; gap:7px; white-space:nowrap; background:#fff; border:1px solid rgba(15,23,42,0.10); border-radius:100px; padding:7px 13px; font-family:var(--font-mono); font-size:11.5px; color:#0F172A; font-weight:500; box-shadow:0 10px 24px -12px rgba(15,23,42,0.4); }
+  .art-chip { position:absolute; z-index:6; display:inline-flex; align-items:center; gap:7px; white-space:nowrap; background:#fff; border:1px solid rgba(15,23,42,0.10); border-radius:100px; padding:7px 13px; font-family:var(--font-mono); font-size:11.5px; color:#0F172A; font-weight:500; box-shadow:0 10px 24px -12px rgba(15,23,42,0.4); will-change:transform; -webkit-backface-visibility:hidden; backface-visibility:hidden; }
   .art-chip i { width:7px; height:7px; border-radius:50%; background:var(--accent); }
   .art-chip.chip-1 { top:12%; left:-2%; animation:artFloat 8s ease-in-out infinite; }
   .art-chip.chip-2 { top:44%; right:-6%; animation:artFloat 10s ease-in-out infinite reverse; }
   .art-chip.chip-3 { bottom:9%; left:6%; animation:artFloat 9s ease-in-out infinite; }
-  .art-orb { position:absolute; border-radius:50%; background:radial-gradient(circle at 35% 35%, #fff, #2563EB); box-shadow:0 6px 16px -4px rgba(29,78,216,0.6); z-index:5; }
+  .art-orb { position:absolute; border-radius:50%; background:radial-gradient(circle at 35% 35%, #fff, #2563EB); box-shadow:0 6px 16px -4px rgba(29,78,216,0.6); z-index:5; will-change:transform; -webkit-backface-visibility:hidden; backface-visibility:hidden; }
   .art-orb.o1 { width:18px; height:18px; top:15%; left:19%; animation:artFloat 7s ease-in-out infinite; }
   .art-orb.o2 { width:12px; height:12px; bottom:19%; left:25%; animation:artFloat 9s ease-in-out infinite reverse; }
   .art-orb.o3 { width:22px; height:22px; bottom:13%; right:15%; animation:artFloat 8s ease-in-out infinite; }
