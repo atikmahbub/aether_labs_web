@@ -308,9 +308,6 @@ export const siteMarkup = String.raw`
       <div class="wrap">
         <div class="hero-grid">
           <div class="hero-left">
-            <span class="label reveal mb-4" style="transition-delay: 0ms"
-              ><span class="n">★</span> DOODLE DASH · PRODUCT STUDIO</span
-            >
             <h1 class="reveal hero-h1" style="transition-delay: 70ms">
               We build<br />what’s <span class="hero-accent">next.</span>
             </h1>
@@ -616,6 +613,12 @@ export const siteMarkup = String.raw`
             grid-template-columns: 1fr;
             gap: 24px;
           }
+          /* On mobile, lead with the visual card, then the copy */
+          .hero-right { order: -1; }
+          .hero-left { order: 0; }
+          /* Let grid columns shrink below content width (nowrap console etc.)
+             so nothing forces horizontal overflow on narrow screens */
+          .hero-grid, .hero-left, .hero-right { min-width: 0; }
           .hero-trust {
             margin-top: 40px;
             padding-top: 24px;
