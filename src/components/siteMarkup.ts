@@ -4112,9 +4112,9 @@ export const siteMarkup = String.raw`
               <div class="contact-direct">
                 Or reach us directly at<!-- -->
                 <a
-                  href="mailto:hello@doodledashlabs.dev"
+                  href="mailto:hello@doodledash.uk"
                   style="color: var(--accent)"
-                  >hello@doodledashlabs.dev</a
+                  >hello@doodledash.uk</a
                 >
               </div>
             </div>

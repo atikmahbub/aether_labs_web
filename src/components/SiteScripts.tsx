@@ -179,24 +179,57 @@ export default function SiteScripts() {
       });
     });
 
-    /* ---------- Contact form ---------- */
-    const form = document.querySelector(".contact-form");
+    /* ---------- Contact form (sends via /api/contact) ---------- */
+    const form = document.querySelector(".contact-form") as HTMLFormElement | null;
     if (form) {
-      on(form, "submit", (e: Event) => {
+      on(form, "submit", async (e: Event) => {
         e.preventDefault();
         const btn = form.querySelector(".submit-btn") as HTMLButtonElement | null;
-        if (!btn) return;
+        if (!btn || btn.disabled) return;
         const orig = btn.textContent;
-        btn.disabled = true;
-        btn.textContent = "Sending…";
-        window.setTimeout(() => {
-          btn.textContent = "Message sent ✓";
+        const val = (id: string) =>
+          (document.getElementById(id) as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | null)?.value.trim() || "";
+
+        const payload = {
+          name: val("cf-name"),
+          email: val("cf-email"),
+          projectType: val("cf-ptype"),
+          message: val("cf-msg"),
+        };
+
+        const restore = (delay = 2600) =>
           window.setTimeout(() => {
             btn.textContent = orig;
             btn.disabled = false;
-            (form as HTMLFormElement).reset();
-          }, 2600);
-        }, 800);
+          }, delay);
+
+        if (!payload.name || !payload.email || !payload.message) {
+          btn.textContent = "Fill in all fields";
+          restore(1800);
+          return;
+        }
+
+        btn.disabled = true;
+        btn.textContent = "Sending…";
+        try {
+          const res = await fetch("/api/contact", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
+          const data = await res.json().catch(() => ({}));
+          if (res.ok && data.ok) {
+            btn.textContent = "Message sent ✓";
+            form.reset();
+            restore();
+          } else {
+            btn.textContent = "Failed — try again";
+            restore();
+          }
+        } catch {
+          btn.textContent = "Network error — retry";
+          restore();
+        }
       });
     }
 
