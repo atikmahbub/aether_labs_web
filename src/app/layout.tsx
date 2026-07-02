@@ -1,12 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Barlow_Condensed, IBM_Plex_Sans, Space_Mono } from "next/font/google";
+import { Archivo, IBM_Plex_Sans, Space_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 
-const barlowCondensed = Barlow_Condensed({
+const archivo = Archivo({
   subsets: ["latin"],
-  weight: ["500", "600", "700", "800", "900"],
+  weight: ["500", "600", "700", "800"],
   variable: "--font-head",
 });
 
@@ -23,7 +23,7 @@ const spaceMono = Space_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Aether Labs — We Build What's Next",
+  title: "Doodle Dash Labs — We Build What's Next",
   description:
     "Premium software engineering studio. We build web apps, mobile apps, AI agent systems and SaaS platforms. End-to-end, from architecture to launch.",
   icons: {
@@ -32,21 +32,24 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    title: "Aether Labs — We Build What's Next",
+    title: "Doodle Dash Labs — We Build What's Next",
     description:
       "Premium software engineering studio. We build web apps, mobile apps, AI agent systems and SaaS platforms. End-to-end, from architecture to launch.",
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0D0500",
+  themeColor: "#F4F6FA",
 };
 
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${barlowCondensed.variable} ${ibmPlexSans.variable} ${spaceMono.variable}`}>
+    <html
+      lang="en"
+      className={`${archivo.variable} ${ibmPlexSans.variable} ${spaceMono.variable}`}
+    >
       <body>
         {children}
         <Analytics />
